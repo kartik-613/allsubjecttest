@@ -7,7 +7,7 @@ const FormPage = () => {
   const [formData, setFormData] = useState({
     title: "",
     objective: "",
-    textTypes: [],
+    textTypes: "", // Changed from array to string
     numberOfQuestions: "",
     level: "",
     markPerQuestion: "",
@@ -28,13 +28,12 @@ const FormPage = () => {
   ];
 
   const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
+    const { name, value, type } = e.target;
+
+    if (name === "textTypes") {
       setFormData((prev) => ({
         ...prev,
-        textTypes: checked
-          ? [...prev.textTypes, value]
-          : prev.textTypes.filter((v) => v !== value),
+        textTypes: value,
       }));
     } else if (name === "timePerQuestion") {
       setFormData((prev) => ({
@@ -64,9 +63,7 @@ const FormPage = () => {
           <div className="bg-white rounded-xl px-5 py-5 border border-gray-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-2xl font-bold">📋 Assessment Setup</h1>
-              <span className="text-gray-600">
-                📝 Fill the form to configure
-              </span>
+              <span className="text-gray-600">📝 Fill the form to configure</span>
             </div>
           </div>
 
@@ -93,22 +90,25 @@ const FormPage = () => {
               className="border border-gray-300 p-2 rounded outline-none w-full"
             />
 
-            <fieldset className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded">
-              <legend className="font-semibold mb-2">Test Type</legend>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {textTypeOptions.map((type) => (
-                  <label key={type} className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      name="testTypes"
-                      value={type}
-                      onChange={handleInputChange}
-                    />
-                    {type}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
+            {/* Radio Button Field */}
+<fieldset className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded">
+  <legend className="font-semibold mb-2">Test Type</legend>
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    {textTypeOptions.map((type) => (
+      <label key={type} className="flex items-center gap-2">
+        <input
+          type="radio"
+          name="textTypes"
+          value={type}
+          checked={formData.textTypes === type}
+          onChange={handleInputChange}
+        />
+        <span className="whitespace-nowrap">{type}</span>
+      </label>
+    ))}
+  </div>
+</fieldset>
+
 
             <input
               type="number"
@@ -197,7 +197,7 @@ const FormPage = () => {
               />
               <label
                 htmlFor="validDate"
-                className="absolute left-2 top-2 text-gray-500 text-sm transition-all peer-valid:text-xs peer-valid:-top-1 outline-none bg-white px-1"
+                className="absolute left-2 top-2 text-gray-500 text-sm transition-all peer-valid:text-xs peer-valid:-top-1 bg-white px-1"
               >
                 Valid Date
               </label>
@@ -216,9 +216,7 @@ const FormPage = () => {
 
         {/* Sidebar */}
         <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white lg:sticky lg:top-8">
-          {/* Top Section */}
           <div className="p-4 md:p-5">
-            {/* Admin Info */}
             <div className="flex items-center gap-4 border-b border-gray-300 pb-3 mb-4">
               <div className="rounded-full p-4 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">
                 AB
@@ -227,8 +225,6 @@ const FormPage = () => {
                 <h1 className="text-lg font-medium">Admin Panel</h1>
               </div>
             </div>
-
-            {/* Instructions */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Instructions</h3>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -239,7 +235,6 @@ const FormPage = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <Button
             onClick={handleSubmit}
             className="w-full text-white bg-blue-400 hover:bg-blue-500 rounded-b-xl py-3"
