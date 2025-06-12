@@ -37,7 +37,6 @@ const FormPage = () => {
           : prev.textTypes.filter((v) => v !== value),
       }));
     } else if (name === "timePerQuestion") {
-      // Convert minutes to seconds
       setFormData((prev) => ({
         ...prev,
         timePerQuestion: parseInt(value || 0) * 60,
@@ -57,19 +56,21 @@ const FormPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-black px-10 py-10">
-      <div className="flex flex-col lg:flex-row gap-10">
-        {/* Left Panel - Form */}
+    <div className="min-h-screen bg-white text-black px-4 py-8 md:px-10">
+      <div className="flex flex-col lg:flex-row gap-8">
+        {/* Left Panel */}
         <div className="flex-1 flex flex-col space-y-5">
           {/* Header */}
           <div className="bg-white rounded-xl px-5 py-5 border border-gray-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-2xl font-bold">📋 Assessment Setup</h1>
-              <span className="text-gray-600">📝 Fill the form to configure</span>
+              <span className="text-gray-600">
+                📝 Fill the form to configure
+              </span>
             </div>
           </div>
 
-          {/* Form Box */}
+          {/* Form */}
           <form
             onSubmit={handleSubmit}
             className="rounded-xl border border-gray-300 p-5 bg-white grid gap-4 grid-cols-1 md:grid-cols-2"
@@ -80,7 +81,7 @@ const FormPage = () => {
               onChange={handleInputChange}
               placeholder="Title"
               required
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
             />
 
             <input
@@ -89,10 +90,10 @@ const FormPage = () => {
               onChange={handleInputChange}
               placeholder="Objective"
               required
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
             />
 
-            <fieldset className="col-span-2 border border-gray-300 p-3 rounded">
+            <fieldset className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded">
               <legend className="font-semibold mb-2">Test Type</legend>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {textTypeOptions.map((type) => (
@@ -115,7 +116,7 @@ const FormPage = () => {
               value={formData.numberOfQuestions}
               onChange={handleInputChange}
               placeholder="Number of Questions"
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
               required
             />
 
@@ -123,7 +124,7 @@ const FormPage = () => {
               name="level"
               value={formData.level}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
               required
             >
               <option value="">Select Test Level</option>
@@ -138,18 +139,17 @@ const FormPage = () => {
               value={formData.markPerQuestion}
               onChange={handleInputChange}
               placeholder="Mark per Question"
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
               required
             />
 
-            {/* Time Input in Minutes */}
             <input
               type="number"
               name="timePerQuestion"
               value={formData.timePerQuestion / 60 || ""}
               onChange={handleInputChange}
               placeholder="Time per Question (in minutes)"
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
               min="0"
               required
             />
@@ -158,7 +158,7 @@ const FormPage = () => {
               name="scoringMethod"
               value={formData.scoringMethod}
               onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
               required
             >
               <option value="">Select Scoring Method</option>
@@ -173,7 +173,7 @@ const FormPage = () => {
               value={formData.weightageAverage}
               onChange={handleInputChange}
               placeholder="Weightage Average"
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
             />
 
             <input
@@ -182,7 +182,7 @@ const FormPage = () => {
               value={formData.numberOfSets}
               onChange={handleInputChange}
               placeholder="Number of Sets"
-              className="border border-gray-300 p-2 rounded outline-none"
+              className="border border-gray-300 p-2 rounded outline-none w-full"
             />
 
             <div className="relative w-full">
@@ -203,7 +203,7 @@ const FormPage = () => {
               </label>
             </div>
 
-            <div className="col-span-2 flex justify-end">
+            <div className="col-span-1 md:col-span-2 flex justify-end">
               <Button
                 type="submit"
                 className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500"
@@ -215,16 +215,20 @@ const FormPage = () => {
         </div>
 
         {/* Sidebar */}
-        <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white">
-          <div className="p-5">
-            <div className="flex items-center gap-5 border-b border-gray-300 pb-3 mb-3">
-              <div className="rounded-full p-5 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">
+        <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white lg:sticky lg:top-8">
+          {/* Top Section */}
+          <div className="p-4 md:p-5">
+            {/* Admin Info */}
+            <div className="flex items-center gap-4 border-b border-gray-300 pb-3 mb-4">
+              <div className="rounded-full p-4 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">
                 AB
               </div>
               <div>
                 <h1 className="text-lg font-medium">Admin Panel</h1>
               </div>
             </div>
+
+            {/* Instructions */}
             <div>
               <h3 className="text-lg font-semibold mb-2">Instructions</h3>
               <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
@@ -235,9 +239,13 @@ const FormPage = () => {
             </div>
           </div>
 
-          <div className="w-full flex items-center justify-center py-4 border-t border-gray-300 text-white bg-blue-400 hover:bg-blue-500 rounded-bl-xl rounded-br-xl cursor-pointer">
-            <Button onClick={handleSubmit}>Save & Proceed</Button>
-          </div>
+          {/* Submit Button */}
+          <Button
+            onClick={handleSubmit}
+            className="w-full text-white bg-blue-400 hover:bg-blue-500 rounded-b-xl py-3"
+          >
+            Save & Proceed
+          </Button>
         </div>
       </div>
     </div>

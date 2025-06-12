@@ -355,65 +355,64 @@ const QuizApp = () => {
               </div>
             </div>
 
-            <div className="flex justify-center">
-              <div className="w-full flex items-center justify-center bg-white border-t p-3 border-gray-300 rounded-bl-xl rounded-br-xl">
-                {timeLeft === 0 ? (
-                  <Button
-                    onClick={() => alert("Test Submitted!")}
-                    className="bg-green-500 hover:bg-green-600 text-white border border-gray-300 rounded-lg py-3 px-9 cursor-pointer"
-                  >
-                    Submit Test
-                  </Button>
-                ) : (
-                  <>
-                    {currentQuestionIndex > 0 && (
-                      <Button
-                        onClick={() =>
-                          setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))
-                        }
-                        className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 mr-2 cursor-pointer"
-                      >
-                        Previous
-                      </Button>
-                    )}
+<div className="flex justify-center">
+  <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-center bg-white border-t p-3 border-gray-300 rounded-bl-xl rounded-br-xl gap-3 sm:gap-4">
+    {timeLeft === 0 ? (
+      <Button
+        onClick={() => alert("Test Submitted!")}
+        className="bg-green-500 hover:bg-green-600 text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
+      >
+        Submit Test
+      </Button>
+    ) : (
+      <>
+        {currentQuestionIndex > 0 && (
+          <Button
+            onClick={() =>
+              setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))
+            }
+            className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
+          >
+            Previous
+          </Button>
+        )}
 
-                    {currentQuestionIndex < questions.length - 1 && (
-                      <Button
-                        onClick={() =>
-                          setCurrentQuestionIndex((prev) =>
-                            Math.min(prev + 1, questions.length - 1)
-                          )
-                        }
-                        className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-9 ml-2 mr-2 cursor-pointer"
-                      >
-                        Next
-                      </Button>
-                    )}
+        {currentQuestionIndex < questions.length - 1 && (
+          <Button
+            onClick={() =>
+              setCurrentQuestionIndex((prev) =>
+                Math.min(prev + 1, questions.length - 1)
+              )
+            }
+            className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
+          >
+            Next
+          </Button>
+        )}
 
-                    {currentQuestionIndex < questions.length - 1 && (
-                      <Button
-                        onClick={() => {
-                          const isMarked = markedForReview[currentQuestionIndex];
-                          toggleMarkForReview(currentQuestionIndex);
-                          if (!isMarked && currentQuestionIndex < questions.length - 1) {
-                            setCurrentQuestionIndex(currentQuestionIndex + 1);
-                          }
-                        }}
-                        className={`text-white border border-gray-300 rounded-lg py-3 px-9 ml-2 cursor-pointer ${
-                          markedForReview[currentQuestionIndex]
-                            ? "bg-blue-500 hover:bg-blue-600"
-                            : "bg-blue-400 hover:bg-blue-500"
-                        }`}
-                      >
-                        {markedForReview[currentQuestionIndex]
-                          ? "Unmark"
-                          : "Mark & Review"}
-                      </Button>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
+        {currentQuestionIndex < questions.length - 1 && (
+          <Button
+            onClick={() => {
+              const isMarked = markedForReview[currentQuestionIndex];
+              toggleMarkForReview(currentQuestionIndex);
+              if (!isMarked && currentQuestionIndex < questions.length - 1) {
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+              }
+            }}
+            className={`text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto ${
+              markedForReview[currentQuestionIndex]
+                ? "bg-blue-500 hover:bg-blue-600"
+                : "bg-blue-400 hover:bg-blue-500"
+            }`}
+          >
+            {markedForReview[currentQuestionIndex] ? "Unmark" : "Mark & Review"}
+          </Button>
+        )}
+      </>
+    )}
+  </div>
+</div>
+
           </div>
         </div>
 
