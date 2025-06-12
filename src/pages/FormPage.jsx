@@ -1,193 +1,3 @@
-// // src/pages/FormPage.jsx
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-
-// const FormPage = () => {
-//   const navigate = useNavigate();
-//   const [formData, setFormData] = useState({
-//     title: "",
-//     objective: "",
-//     textTypes: [],
-//     numberOfQuestions: "",
-//     level: "",
-//     markPerQuestion: "",
-//     timePerQuestion: "",
-//     scoringMethod: "",
-//     weightageAverage: "",
-//     numberOfSets: "",
-//     validDate: "",
-//   });
-
-//   const textTypeOptions = [
-//     "Mock Test",
-//     "Design Making",
-//     "Assessment",
-//     "Certification",
-//     "Survey",
-//     "Psychometrics",
-//   ];
-
-//   const handleInputChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     if (type === "checkbox") {
-//       setFormData((prev) => ({
-//         ...prev,
-//         textTypes: checked
-//           ? [...prev.textTypes, value]
-//           : prev.textTypes.filter((v) => v !== value),
-//       }));
-//     } else {
-//       setFormData((prev) => ({
-//         ...prev,
-//         [name]: value,
-//       }));
-//     }
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log("Form Data:", formData);
-//     navigate("/next"); // go to the next page
-//   };
-
-//   return (
-//     <div className="max-w-4xl mx-auto p-8">
-//       <h1 className="text-2xl font-bold mb-4">Assessment Setup</h1>
-//       <form onSubmit={handleSubmit} className="grid gap-4 grid-cols-1 md:grid-cols-2">
-
-//         <input
-//           name="title"
-//           value={formData.title}
-//           onChange={handleInputChange}
-//           placeholder="Title"
-//           required
-//           className="border p-2 rounded"
-//         />
-
-//         <input
-//           name="objective"
-//           value={formData.objective}
-//           onChange={handleInputChange}
-//           placeholder="Objective"
-//           required
-//           className="border p-2 rounded"
-//         />
-
-//         <fieldset className="col-span-2 border p-3 rounded">
-//           <legend className="font-semibold mb-2">Text Type</legend>
-//           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-//             {textTypeOptions.map((type) => (
-//               <label key={type} className="flex items-center gap-2">
-//                 <input
-//                   type="checkbox"
-//                   name="textTypes"
-//                   value={type}
-//                   onChange={handleInputChange}
-//                 />
-//                 {type}
-//               </label>
-//             ))}
-//           </div>
-//         </fieldset>
-
-//         <input
-//           type="number"
-//           name="numberOfQuestions"
-//           value={formData.numberOfQuestions}
-//           onChange={handleInputChange}
-//           placeholder="Number of Questions"
-//           className="border p-2 rounded"
-//           required
-//         />
-
-//         <input
-//           name="level"
-//           value={formData.level}
-//           onChange={handleInputChange}
-//           placeholder="Level (Easy/Medium/Hard)"
-//           className="border p-2 rounded"
-//           required
-//         />
-
-//         <input
-//           type="number"
-//           name="markPerQuestion"
-//           value={formData.markPerQuestion}
-//           onChange={handleInputChange}
-//           placeholder="Mark per Question"
-//           className="border p-2 rounded"
-//           required
-//         />
-
-//         <input
-//           type="number"
-//           name="timePerQuestion"
-//           value={formData.timePerQuestion}
-//           onChange={handleInputChange}
-//           placeholder="Time per Question (seconds)"
-//           className="border p-2 rounded"
-//           required
-//         />
-
-//         <select
-//           name="scoringMethod"
-//           value={formData.scoringMethod}
-//           onChange={handleInputChange}
-//           className="border p-2 rounded"
-//           required
-//         >
-//           <option value="">Select Scoring Method</option>
-//           <option value="total">Total</option>
-//           <option value="average">Average</option>
-//           <option value="weighted">Weighted Average</option>
-//         </select>
-
-//         <input
-//           type="number"
-//           name="weightageAverage"
-//           value={formData.weightageAverage}
-//           onChange={handleInputChange}
-//           placeholder="Weightage Average"
-//           className="border p-2 rounded"
-//         />
-
-//         <input
-//           type="number"
-//           name="numberOfSets"
-//           value={formData.numberOfSets}
-//           onChange={handleInputChange}
-//           placeholder="Number of Sets"
-//           className="border p-2 rounded"
-//         />
-
-//         <input
-//           type="date"
-//           name="validDate"
-//           value={formData.validDate}
-//           onChange={handleInputChange}
-//           className="border p-2 rounded"
-//           required
-//         />
-
-//         <div className="col-span-2 flex justify-end">
-//           <button
-//             type="submit"
-//             className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500"
-//           >
-//             Next
-//           </button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default FormPage;
-
-
-
-
-// src/pages/FormPage.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
@@ -209,8 +19,8 @@ const FormPage = () => {
   });
 
   const textTypeOptions = [
-    "Mock Test",
-    "Design Making",
+    "Practice Test",
+    "Decision Making",
     "Assessment",
     "Certification",
     "Survey",
@@ -225,6 +35,12 @@ const FormPage = () => {
         textTypes: checked
           ? [...prev.textTypes, value]
           : prev.textTypes.filter((v) => v !== value),
+      }));
+    } else if (name === "timePerQuestion") {
+      // Convert minutes to seconds
+      setFormData((prev) => ({
+        ...prev,
+        timePerQuestion: parseInt(value || 0) * 60,
       }));
     } else {
       setFormData((prev) => ({
@@ -303,14 +119,18 @@ const FormPage = () => {
               required
             />
 
-            <input
+            <select
               name="level"
               value={formData.level}
               onChange={handleInputChange}
-              placeholder="Level (Easy/Medium/Hard)"
               className="border border-gray-300 p-2 rounded outline-none"
               required
-            />
+            >
+              <option value="">Select Test Level</option>
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select>
 
             <input
               type="number"
@@ -322,13 +142,15 @@ const FormPage = () => {
               required
             />
 
+            {/* Time Input in Minutes */}
             <input
               type="number"
               name="timePerQuestion"
-              value={formData.timePerQuestion}
+              value={formData.timePerQuestion / 60 || ""}
               onChange={handleInputChange}
-              placeholder="Time per Question (seconds)"
+              placeholder="Time per Question (in minutes)"
               className="border border-gray-300 p-2 rounded outline-none"
+              min="0"
               required
             />
 
@@ -363,17 +185,29 @@ const FormPage = () => {
               className="border border-gray-300 p-2 rounded outline-none"
             />
 
-            <input
-              type="date"
-              name="validDate"
-              value={formData.validDate}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded outline-none"
-              required
-            />
+            <div className="relative w-full">
+              <input
+                type="date"
+                name="validDate"
+                value={formData.validDate}
+                onChange={handleInputChange}
+                id="validDate"
+                className="peer w-full border border-gray-300 p-2 pt-5 rounded-md outline-none"
+                required
+              />
+              <label
+                htmlFor="validDate"
+                className="absolute left-2 top-2 text-gray-500 text-sm transition-all peer-valid:text-xs peer-valid:-top-1 outline-none bg-white px-1"
+              >
+                Valid Date
+              </label>
+            </div>
 
             <div className="col-span-2 flex justify-end">
-              <Button type="submit" className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500">
+              <Button
+                type="submit"
+                className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500"
+              >
                 Next
               </Button>
             </div>
