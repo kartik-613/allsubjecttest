@@ -405,7 +405,7 @@ const QuizApp = () => {
                 : "bg-blue-400 hover:bg-blue-500"
             }`}
           >
-            {markedForReview[currentQuestionIndex] ? "Unmark" : "Mark & Review"}
+            {markedForReview[currentQuestionIndex] ? "Unmark" : "Mark for Review"}
           </Button>
         )}
       </>
