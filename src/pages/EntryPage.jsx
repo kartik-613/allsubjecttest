@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
-import miracleFullLogo from "../assets/miracleFullLogo.png"
-
+import miracleFullLogo from "../assets/miracleFullLogo.png";
 
 const EntryPage = () => {
   const navigate = useNavigate();
@@ -55,91 +54,93 @@ const EntryPage = () => {
   };
 
   return (
-        <div className="min-h-screen">
-            
-        <div className="h-15 bg-blue-400 w-full"></div>
-      <div className=" bg-white text-black flex flex-col items-center justify-center p-10">
+    <div className="min-h-screen bg-gray-50">
+      <div className="h-16 bg-blue-400 w-full" />
 
-      <div className="w-full max-w-xl border border-gray-300 rounded-xl p-6 bg-white shadow">
-        <img src={miracleFullLogo} alt="img" className="w-32 h-auto mx-auto mb-4" />
-        {/* <h2 className="text-2xl font-bold mb-4">📋 User Entry</h2> */}
-
-        <div className="grid grid-cols-1 gap-4">
-          <input
-            type="text"
-            name="name"
-            value={entryData.name}
-            onChange={handleChange}
-            placeholder="Full Name"
-            className="border border-gray-300 p-2 rounded outline-none"
-            required
+      <div className="flex justify-center p-4 sm:p-10">
+        <div className="w-full max-w-md border border-gray-300 rounded-xl p-5 bg-white shadow">
+          <img
+            src={miracleFullLogo}
+            alt="img"
+            className="w-28 sm:w-32 h-auto mx-auto mb-5"
           />
 
-          <input
-            type="email"
-            name="email"
-            value={entryData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="border border-gray-300 p-2 rounded outline-none"
-            required
-          />
-
-          <div className="flex gap-2">
+          <div className="grid grid-cols-1 gap-4">
             <input
-              type="tel"
-              name="mobile"
-              value={entryData.mobile}
+              type="text"
+              name="name"
+              value={entryData.name}
               onChange={handleChange}
-              placeholder="Mobile Number"
-              className="flex-1 border border-gray-300 p-2 rounded outline-none"
+              placeholder="Full Name"
+              className="border border-gray-300 p-2 rounded outline-none text-sm"
               required
             />
+
+            <input
+              type="email"
+              name="email"
+              value={entryData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              className="border border-gray-300 p-2 rounded outline-none text-sm"
+              required
+            />
+
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="tel"
+                name="mobile"
+                value={entryData.mobile}
+                onChange={handleChange}
+                placeholder="Mobile Number"
+                className="flex-1 border border-gray-300 p-2 rounded outline-none text-sm"
+                required
+              />
+              <Button
+                type="button"
+                onClick={sendOtp}
+                className="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm"
+              >
+                Send OTP
+              </Button>
+            </div>
+
+            {otpSent && (
+              <>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="text"
+                    name="otp"
+                    value={entryData.otp}
+                    onChange={handleChange}
+                    placeholder="Enter OTP"
+                    className="flex-1 border border-gray-300 p-2 rounded outline-none text-sm"
+                    required
+                  />
+                  <Button
+                    type="button"
+                    onClick={verifyOtp}
+                    className="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm"
+                  >
+                    Verify
+                  </Button>
+                </div>
+                {otpVerified && (
+                  <p className="text-green-600 text-sm">✅ OTP Verified!</p>
+                )}
+              </>
+            )}
+
             <Button
-              type="button"
-              onClick={sendOtp}
-              className="bg-blue-400 hover:bg-blue-500 text-white px-4 rounded"
+              onClick={handleNext}
+              className="bg-blue-400 hover:bg-blue-500 text-white w-full py-2 mt-1 rounded text-sm"
             >
-              Send OTP
+              Next
             </Button>
           </div>
-
-          {otpSent && (
-            <>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  name="otp"
-                  value={entryData.otp}
-                  onChange={handleChange}
-                  placeholder="Enter OTP"
-                  className="flex-1 border border-gray-300 p-2 rounded outline-none"
-                  required
-                />
-                <Button
-                  type="button"
-                  onClick={verifyOtp}
-                  className="bg-blue-400 hover:bg-blue-500 text-white px-4 rounded"
-                >
-                  Verify
-                </Button>
-              </div>
-              {otpVerified && (
-                <p className="text-blue-00 text-sm">✅ OTP Verified!</p>
-              )}
-            </>
-          )}
-
-          <Button
-            onClick={handleNext}
-            className="bg-blue-400 hover:bg-blue-500 text-white w-full py-2 mt-2 rounded"
-          >
-            Next
-          </Button>
         </div>
       </div>
     </div>
-            </div>
   );
 };
 
