@@ -11,13 +11,13 @@ const FormPage = () => {
     title: "",
     objective: "",
     textTypes: "Practice Test",
-    subject: "",
+    topic: "",
+    selectedTopics: [],
     numberOfQuestions: "",
     level: "",
     markPerQuestion: "",
     timePerQuestion: "",
     scoringMethod: "",
-    weightageAverage: "",
     numberOfSets: "",
     validDate: "",
   });
@@ -31,7 +31,7 @@ const FormPage = () => {
     "Psychometrics",
   ];
 
-  const subjectOptionsMap = {
+  const topicOptionsMap = {
     "Practice Test": ["Math", "Science", "English"],
     "Decision Making": ["Logic", "Ethics", "Critical Thinking"],
     "Assessment": ["Aptitude", "Reasoning"],
@@ -41,18 +41,27 @@ const FormPage = () => {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, multiple, options } = e.target;
 
     if (name === "textTypes") {
       setFormData((prev) => ({
         ...prev,
         textTypes: value,
-        subject: "",
+        topic: "",
+        selectedTopics: [],
       }));
     } else if (name === "timePerQuestion") {
       setFormData((prev) => ({
         ...prev,
         timePerQuestion: parseInt(value || 0) * 60,
+      }));
+    } else if (name === "selectedTopics" && multiple) {
+      const selected = Array.from(options)
+        .filter((o) => o.selected)
+        .map((o) => o.value);
+      setFormData((prev) => ({
+        ...prev,
+        selectedTopics: selected,
       }));
     } else {
       setFormData((prev) => ({
@@ -64,6 +73,24 @@ const FormPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validation check (optional)
+    if (
+      formData.textTypes === "Decision Making" &&
+      formData.selectedTopics.length === 0
+    ) {
+      alert("Please select at least one topic.");
+      return;
+    }
+
+    if (
+      formData.textTypes !== "Decision Making" &&
+      !formData.topic
+    ) {
+      alert("Please select a topic.");
+      return;
+    }
+
     console.log("Form Data:", formData);
     navigate("/next");
   };
@@ -84,6 +111,7 @@ const FormPage = () => {
             onSubmit={handleSubmit}
             className="rounded-xl border border-gray-300 p-5 bg-white grid gap-4 grid-cols-1 md:grid-cols-2"
           >
+            {/* Test Type */}
             <fieldset className="col-span-1 md:col-span-2 border border-gray-300 p-3 rounded">
               <legend className="font-semibold mb-2">Test Type</legend>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -102,26 +130,43 @@ const FormPage = () => {
               </div>
             </fieldset>
 
-            {/* Subject Dropdown */}
-            {formData.textTypes &&
-              subjectOptionsMap[formData.textTypes] && (
+            {/* Topic Selector */}
+            {formData.textTypes === "Decision Making" ? (
+              <select
+                name="selectedTopics"
+                multiple
+                value={formData.selectedTopics}
+                onChange={handleInputChange}
+                className="border border-gray-300 p-2 rounded outline-none w-full"
+                required
+              >
+                {topicOptionsMap["Decision Making"].map((topic) => (
+                  <option key={topic} value={topic}>
+                    {topic}
+                  </option>
+                ))}
+              </select>
+            ) : (
+              formData.textTypes &&
+              topicOptionsMap[formData.textTypes] && (
                 <select
-                  name="subject"
-                  value={formData.subject}
+                  name="topic"
+                  value={formData.topic}
                   onChange={handleInputChange}
                   className="border border-gray-300 p-2 rounded outline-none w-full"
                   required
                 >
-                  <option value="">Select Subject</option>
-                  {subjectOptionsMap[formData.textTypes].map((subject) => (
-                    <option key={subject} value={subject}>
-                      {subject}
+                  <option value="">Select Topic</option>
+                  {topicOptionsMap[formData.textTypes].map((topic) => (
+                    <option key={topic} value={topic}>
+                      {topic}
                     </option>
                   ))}
                 </select>
-              )}
+              )
+            )}
 
-            {/* Title & Objective (conditional) */}
+            {/* Title & Objective (not for Assessment) */}
             {formData.textTypes !== "Assessment" && (
               <>
                 <input
@@ -143,6 +188,7 @@ const FormPage = () => {
               </>
             )}
 
+            {/* Other Inputs */}
             <input
               type="number"
               name="numberOfQuestions"
@@ -202,15 +248,6 @@ const FormPage = () => {
 
             <input
               type="number"
-              name="weightageAverage"
-              value={formData.weightageAverage}
-              onChange={handleInputChange}
-              placeholder="Weightage Average"
-              className="border border-gray-300 p-2 rounded outline-none w-full"
-            />
-
-            <input
-              type="number"
               name="numberOfSets"
               value={formData.numberOfSets}
               onChange={handleInputChange}
@@ -218,35 +255,34 @@ const FormPage = () => {
               className="border border-gray-300 p-2 rounded outline-none w-full"
             />
 
-           {/* ✅ Inline React DatePicker & Submit Button */}
-<div className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center gap-4 justify-between">
-  <div className="w-full md:w-1/2">
-    <label className="block mb-1 text-sm text-gray-600 font-medium">Valid Date</label>
-    <DatePicker
-      selected={formData.validDate ? new Date(formData.validDate) : null}
-      onChange={(date) =>
-        setFormData((prev) => ({
-          ...prev,
-          validDate: date.toISOString().split("T")[0],
-        }))
-      }
-      dateFormat="yyyy-MM-dd"
-      placeholderText="Select a date"
-      className="w-full border border-gray-300 p-2 rounded-md outline-none"
-      required
-    />
-  </div>
+            {/* DatePicker + Top Button */}
+            <div className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center gap-4 justify-between">
+              <div className="w-full md:w-1/2">
+                <label className="block mb-1 text-sm text-gray-600 font-medium">Valid Date</label>
+                <DatePicker
+                  selected={formData.validDate ? new Date(formData.validDate) : null}
+                  onChange={(date) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      validDate: date.toISOString().split("T")[0],
+                    }))
+                  }
+                  dateFormat="yyyy-MM-dd"
+                  placeholderText="Select a date"
+                  className="w-full border border-gray-300 p-2 rounded-md outline-none"
+                  required
+                />
+              </div>
 
-  <div className="w-full md:w-auto mt-4 md:mt-6">
-    <Button
-      type="submit"
-      className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500 w-full md:w-auto"
-    >
-      Next
-    </Button>
-  </div>
-</div>
-
+              <div className="w-full md:w-auto mt-4 md:mt-6">
+                <Button
+                  type="submit"
+                  className="bg-blue-400 text-white px-6 py-2 rounded hover:bg-blue-500 w-full md:w-auto"
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
           </form>
         </div>
 

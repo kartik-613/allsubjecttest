@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
 import miracleFullLogo from "../assets/miracleFullLogo.png";
@@ -15,6 +15,7 @@ const EntryPage = () => {
   const [otpSent, setOtpSent] = useState(false);
   const [generatedOtp, setGeneratedOtp] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
+  const [timer, setTimer] = useState(0);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,33 +25,40 @@ const EntryPage = () => {
     }));
   };
 
+  const startTimer = () => {
+    setTimer(60);
+  };
+
+  useEffect(() => {
+    if (timer > 0) {
+      const countdown = setTimeout(() => setTimer(timer - 1), 1000);
+      return () => clearTimeout(countdown);
+    }
+  }, [timer]);
+
   const sendOtp = () => {
-    if (!entryData.mobile.match(/^\d{10}$/)) {
-      alert("Please enter a valid 10-digit mobile number.");
+    if (!entryData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      alert("Please enter a valid email address.");
       return;
     }
 
     const fakeOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(fakeOtp);
     setOtpSent(true);
-    alert(`OTP sent to ${entryData.mobile}: ${fakeOtp}`);
+    startTimer();
+    alert(`OTP sent to ${entryData.email}: ${fakeOtp}`);
   };
 
   const verifyOtp = () => {
     if (entryData.otp === generatedOtp) {
       setOtpVerified(true);
       alert("OTP Verified!");
+      setTimeout(() => {
+        navigate("/form");
+      }, 500); // short delay to show success message
     } else {
       alert("Invalid OTP. Please try again.");
     }
-  };
-
-  const handleNext = () => {
-    if (!otpVerified) {
-      alert("Please verify OTP before proceeding.");
-      return;
-    }
-    navigate("/form");
   };
 
   return (
@@ -86,24 +94,26 @@ const EntryPage = () => {
               required
             />
 
-            <div className="flex flex-col sm:flex-row gap-2">
-              <input
-                type="tel"
-                name="mobile"
-                value={entryData.mobile}
-                onChange={handleChange}
-                placeholder="Mobile Number"
-                className="flex-1 border border-gray-300 p-2 rounded outline-none text-sm"
-                required
-              />
-              <Button
-                type="button"
-                onClick={sendOtp}
-                className="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm"
-              >
-                Send OTP
-              </Button>
-            </div>
+            <input
+              type="tel"
+              name="mobile"
+              value={entryData.mobile}
+              onChange={handleChange}
+              placeholder="Mobile Number"
+              className="border border-gray-300 p-2 rounded outline-none text-sm"
+              required
+            />
+
+            <Button
+              type="button"
+              onClick={sendOtp}
+              disabled={timer > 0}
+              className={`${
+                timer > 0 ? "bg-blue-400 cursor-not-allowed" : "bg-blue-400 hover:bg-blue-500"
+              } text-white px-4 py-2 rounded text-sm`}
+            >
+              {otpSent ? (timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP") : "Send OTP"}
+            </Button>
 
             {otpSent && (
               <>
@@ -126,17 +136,10 @@ const EntryPage = () => {
                   </Button>
                 </div>
                 {otpVerified && (
-                  <p className="text-green-600 text-sm">✅ OTP Verified!</p>
+                  <p className="text-green-600 text-sm">✅ OTP Verified! Redirecting...</p>
                 )}
               </>
             )}
-
-            <Button
-              onClick={handleNext}
-              className="bg-blue-400 hover:bg-blue-500 text-white w-full py-2 mt-1 rounded text-sm"
-            >
-              Next
-            </Button>
           </div>
         </div>
       </div>
