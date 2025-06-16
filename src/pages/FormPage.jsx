@@ -34,7 +34,8 @@ const FormPage = () => {
     { value: "Marketing", label: "Marketing" },
     { value: "Finance", label: "Finance" },
   ];
-
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [startDate, endDate] = dateRange;
   const [formData, setFormData] = useState({
     title: "",
     objective: "",
@@ -52,7 +53,9 @@ const FormPage = () => {
   });
 
   const isPsychometrics = formData.textTypes === "Psychometrics";
-  const showOnlyTopic = ["Assessment", "Certification", "Survey"].includes(formData.textTypes);
+  const showOnlyTopic = ["Assessment", "Certification", "Survey"].includes(
+    formData.textTypes
+  );
   const showTopicAndLevel = formData.textTypes === "Coding Challenge";
   const showPreferredCourses = formData.textTypes === "Decision Making";
   const showFullFields = ![
@@ -88,7 +91,9 @@ const FormPage = () => {
       <label className="flex items-center space-x-2">
         <input
           type="checkbox"
-          checked={formData.preferredCourses.some((d) => d.value === data.value)}
+          checked={formData.preferredCourses.some(
+            (d) => d.value === data.value
+          )}
           onChange={() => {}}
         />
         <span>{data.label}</span>
@@ -104,7 +109,9 @@ const FormPage = () => {
           <div className="bg-white rounded-xl px-5 py-5 border border-gray-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-2xl font-bold">📋 Assessment Setup</h1>
-              <span className="text-gray-600">📝 Fill the form to configure</span>
+              <span className="text-gray-600">
+                📝 Fill the form to configure
+              </span>
             </div>
           </div>
 
@@ -270,24 +277,25 @@ const FormPage = () => {
 
             {/* Date & Submit */}
             <div className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center gap-4 justify-between">
-              <div className="w-full md:w-1/2">
-                <label className="block mb-1 text-sm text-gray-600 font-medium">
-                  Valid Date
-                </label>
+              <div className="w-full">
                 <DatePicker
-                  selected={formData.validDate ? new Date(formData.validDate) : null}
-                  onChange={(date) =>
-                    setFormData((prev) => ({
-                      ...prev,
-                      validDate: date.toISOString().split("T")[0],
-                    }))
-                  }
-                  dateFormat="yyyy-MM-dd"
-                  placeholderText="Select a date"
-                  className="w-full border border-gray-300 p-2 rounded-md outline-none"
-                  required
+                  selectsRange
+                  startDate={startDate}
+                  endDate={endDate}
+                  onChange={(update) => setDateRange(update)}
+                  monthsShown={2}
+                  dateFormat="dd/MM/yyyy"
+                  className="w-full border border-gray-300 p-2 rounded outline-none text-sm"
+                  placeholderText="📅 Select valid date range"
+                  isClearable
+                  scrollableYearDropdown
+                  yearDropdownItemNumber={50}
+                  minDate={new Date(1900, 0, 1)}
+                  maxDate={new Date(2025, 11, 31)}
+                  popperPlacement="bottom-start"
                 />
               </div>
+
               <div className="w-full md:w-auto mt-4 md:mt-6">
                 <Button
                   type="submit"

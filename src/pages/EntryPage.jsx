@@ -5,6 +5,7 @@ import miracleFullLogo from "../assets/miracleFullLogo.png";
 
 const EntryPage = () => {
   const navigate = useNavigate();
+
   const [entryData, setEntryData] = useState({
     name: "",
     email: "",
@@ -12,6 +13,7 @@ const EntryPage = () => {
     otp: "",
   });
 
+  const [errors, setErrors] = useState({});
   const [otpSent, setOtpSent] = useState(false);
   const [generatedOtp, setGeneratedOtp] = useState("");
   const [otpVerified, setOtpVerified] = useState(false);
@@ -22,6 +24,11 @@ const EntryPage = () => {
     setEntryData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
     }));
   };
 
@@ -36,11 +43,22 @@ const EntryPage = () => {
     }
   }, [timer]);
 
+  const validateInputs = () => {
+    const newErrors = {};
+    const { name, email, mobile } = entryData;
+
+    if (!name.trim()) newErrors.name = "Name is required.";
+    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/))
+      newErrors.email = "Please enter a valid email address.";
+    if (!mobile.match(/^[6-9]\d{9}$/))
+      newErrors.mobile = "Please enter a valid 10-digit Indian mobile number.";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const sendOtp = () => {
-    if (!entryData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      alert("Please enter a valid email address.");
-      return;
-    }
+    if (!validateInputs()) return;
 
     const fakeOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setGeneratedOtp(fakeOtp);
@@ -53,9 +71,7 @@ const EntryPage = () => {
     if (entryData.otp === generatedOtp) {
       setOtpVerified(true);
       alert("OTP Verified!");
-      setTimeout(() => {
-        navigate("/form");
-      }, 500); // short delay to show success message
+      setTimeout(() => navigate("/form"), 500);
     } else {
       alert("Invalid OTP. Please try again.");
     }
@@ -69,47 +85,59 @@ const EntryPage = () => {
         <div className="w-full max-w-md border border-gray-300 rounded-xl p-5 bg-white shadow">
           <img
             src={miracleFullLogo}
-            alt="img"
+            alt="Miracle Logo"
             className="w-28 sm:w-32 h-auto mx-auto mb-5"
           />
 
           <div className="grid grid-cols-1 gap-4">
-            <input
-              type="text"
-              name="name"
-              value={entryData.name}
-              onChange={handleChange}
-              placeholder="Full Name"
-              className="border border-gray-300 p-2 rounded outline-none text-sm"
-              required
-            />
+            <div>
+              <input
+                type="text"
+                name="name"
+                value={entryData.name}
+                onChange={handleChange}
+                placeholder="Full Name"
+                autoComplete="name"
+                className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
+              />
+              {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
+            </div>
 
-            <input
-              type="email"
-              name="email"
-              value={entryData.email}
-              onChange={handleChange}
-              placeholder="Email"
-              className="border border-gray-300 p-2 rounded outline-none text-sm"
-              required
-            />
+            <div>
+              <input
+                type="email"
+                name="email"
+                value={entryData.email}
+                onChange={handleChange}
+                placeholder="Email"
+                autoComplete="email"
+                className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
+              />
+              {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
+            </div>
 
-            <input
-              type="tel"
-              name="mobile"
-              value={entryData.mobile}
-              onChange={handleChange}
-              placeholder="Mobile Number"
-              className="border border-gray-300 p-2 rounded outline-none text-sm"
-              required
-            />
+            <div>
+              <input
+                type="tel"
+                name="mobile"
+                value={entryData.mobile}
+                onChange={handleChange}
+                placeholder="Mobile Number"
+                autoComplete="tel"
+                maxLength={10}
+                className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
+              />
+              {errors.mobile && <p className="text-red-600 text-sm mt-1">{errors.mobile}</p>}
+            </div>
 
             <Button
               type="button"
               onClick={sendOtp}
               disabled={timer > 0}
               className={`${
-                timer > 0 ? "bg-blue-400 cursor-not-allowed" : "bg-blue-400 hover:bg-blue-500"
+                timer > 0
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-400 hover:bg-blue-500"
               } text-white px-4 py-2 rounded text-sm`}
             >
               {otpSent ? (timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP") : "Send OTP"}
@@ -125,7 +153,6 @@ const EntryPage = () => {
                     onChange={handleChange}
                     placeholder="Enter OTP"
                     className="flex-1 border border-gray-300 p-2 rounded outline-none text-sm"
-                    required
                   />
                   <Button
                     type="button"
@@ -148,3 +175,9 @@ const EntryPage = () => {
 };
 
 export default EntryPage;
+
+
+
+
+
+

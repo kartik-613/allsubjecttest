@@ -4,6 +4,7 @@ import EntryPage from "./pages/EntryPage";
 import FormPage from "./pages/FormPage";
 import QuizApp from "./pages/QuizApp";
 import CodePlaygroundPage from "./pages/CodePlaygroundPage"; // ✅
+import TabsPage from "./pages/TabsPage";
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
         <Route path="/" element={<EntryPage />} />
         <Route path="/form" element={<FormPage />} />
         <Route path="/next" element={<QuizApp />} />
-        <Route path="/editor" element={<CodePlaygroundPage />} /> {/* ✅ New */}
+        <Route path="/editor" element={<CodePlaygroundPage />} />
+        <Route path="/tabs" element={<TabsPage />} />
       </Routes>
     </Router>
   );

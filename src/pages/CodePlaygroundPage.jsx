@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
 import { Button } from "../components/button";
+import { Navigate, useNavigate } from "react-router-dom";
+
 
 const languageOptions = [
   { label: "C", value: "c" },
@@ -51,6 +53,8 @@ const CodePlaygroundPage = () => {
   const [code, setCode] = useState(defaultCode["c"]);
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleRunCode = async () => {
     setLoading(true);
@@ -110,7 +114,7 @@ const CodePlaygroundPage = () => {
                 </select>
                 <Button
                   onClick={handleRunCode}
-                  className="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 text-sm rounded"
+                  className="bg-blue-400 text-white hover:bg-blue-500 px-4 py-2 text-sm rounded"
                 >
                   {loading ? "Running..." : "Run Code"}
                 </Button>
@@ -138,8 +142,14 @@ const CodePlaygroundPage = () => {
         {/* Right side: Output (40%) */}
         <div className="flex-[2] border border-gray-300 rounded-xl bg-white flex flex-col">
           {/* Header */}
-          <div className="p-5 border-b border-gray-300">
+          <div className="p-5 border-b border-gray-300 flex justify-between">
             <h1 className="text-2xl font-bold">💻 Output</h1>
+            <Button
+              className="bg-blue-400 text-white hover:bg-blue-500 px-4 py-2 text-sm rounded"
+              onClick={() => setOutput("")}
+            >
+              Clear Output
+            </Button>
           </div>
 
           {/* Output content scrollable area */}
@@ -152,10 +162,15 @@ const CodePlaygroundPage = () => {
           </div>
 
           {/* Bottom button */}
-          <div className="w-full flex justify-center py-4 border-t border-gray-300 text-white bg-blue-400 hover:bg-blue-500 rounded-b-xl">
-            <Button onClick={() => setOutput("")}>Clear Output</Button>
-          </div>
-        </div>
+    <div className="w-full flex justify-center py-4 border-t border-gray-300 text-white bg-blue-400 hover:bg-blue-500 rounded-b-xl">
+      <Button
+        onClick={() => navigate("/tabs")}
+        
+      >
+        Submit Test
+      </Button>
+    </div>
+       </div>
       </div>
     </div>
   );
