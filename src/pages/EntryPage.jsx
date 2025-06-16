@@ -19,19 +19,6 @@ const EntryPage = () => {
   const [otpVerified, setOtpVerified] = useState(false);
   const [timer, setTimer] = useState(0);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEntryData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    setErrors((prev) => ({
-      ...prev,
-      [name]: "",
-    }));
-  };
-
   const startTimer = () => {
     setTimer(60);
   };
@@ -42,6 +29,35 @@ const EntryPage = () => {
       return () => clearTimeout(countdown);
     }
   }, [timer]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setEntryData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // Real-time validation
+    let error = "";
+
+    if (name === "name" && !value.trim()) {
+      error = "Name is required.";
+    }
+
+    if (name === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      error = "Please enter a valid email address.";
+    }
+
+    if (name === "mobile" && value && !/^[6-9]\d{0,9}$/.test(value)) {
+      error = "Enter a valid Indian mobile number.";
+    }
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: error,
+    }));
+  };
 
   const validateInputs = () => {
     const newErrors = {};
@@ -121,10 +137,11 @@ const EntryPage = () => {
                 type="tel"
                 name="mobile"
                 value={entryData.mobile}
-                onChange={handleChange}
+                onChange={(e) => {
+                  if (e.target.value.length <= 10) handleChange(e);
+                }}
                 placeholder="Mobile Number"
                 autoComplete="tel"
-                maxLength={10}
                 className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
               />
               {errors.mobile && <p className="text-red-600 text-sm mt-1">{errors.mobile}</p>}
@@ -175,9 +192,3 @@ const EntryPage = () => {
 };
 
 export default EntryPage;
-
-
-
-
-
-
