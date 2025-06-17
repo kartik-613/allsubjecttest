@@ -1,6 +1,6 @@
 [
   {
-    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser?",
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 1)",
     "options": [
       {
         "a": "XMLHttpRequest"
@@ -19,7 +19,7 @@
     "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
   },
   {
-    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments?",
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 2)",
     "options": [
       {
         "a": "Hardcoding the API key directly into the JavaScript file."
@@ -38,7 +38,7 @@
     "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
   },
   {
-    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section?",
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 3)",
     "options": [
       {
         "a": "Microsoft SQL Server (MS SQL)"
@@ -57,7 +57,7 @@
     "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
   },
   {
-    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into?",
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 4)",
     "options": [
       {
         "a": "/etc/nginx/conf.d/"
@@ -76,7 +76,1812 @@
     "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
   },
   {
-    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs?",
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 5)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 6)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 7)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 8)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 9)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 10)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 11)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 12)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 13)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 14)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 15)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 16)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 17)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 18)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 19)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 20)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 21)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 22)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 23)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 24)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 25)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+   {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 1)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 2)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 3)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 4)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 5)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 6)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 7)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 8)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 9)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 10)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 11)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 12)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 13)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 14)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 15)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 16)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 17)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 18)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 19)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 20)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 21)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 22)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 23)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 24)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 25)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+   {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 1)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 2)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 3)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 4)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 5)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 6)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 7)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 8)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 9)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 10)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 11)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 12)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 13)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 14)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 15)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 16)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 17)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 18)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 19)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 20)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 21)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 22)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 23)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 24)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 25)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+   {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 1)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 2)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 3)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 4)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 5)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 6)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 7)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 8)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 9)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 10)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 11)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 12)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 13)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 14)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 15)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 16)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 17)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 18)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 19)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 20)",
+    "options": [
+      {
+        "a": "To check if the student has a stable internet connection."
+      },
+      {
+        "b": "To ensure the person in front of the camera is a real, live human and not a photo, video, or mask."
+      },
+      {
+        "c": "To verify the student's identity by comparing their face to a database."
+      },
+      {
+        "d": "To detect if the student is looking away from the screen during the exam."
+      }
+    ],
+    "correct_answer": "b",
+    "explanation": "Liveness Detection/Anti-Spoofing specifically aims to determine if the subject interacting with the system is a live person, thereby preventing spoofing attempts using static images, videos, or 3D masks. While identity verification (c) and gaze tracking (d) are proctoring features, they are distinct from liveness detection."
+  },
+  {
+    "question": "Which of the following JavaScript APIs is the **modern and recommended** method for making asynchronous HTTP requests (AJAX calls) in a web browser? (Variant 21)",
+    "options": [
+      {
+        "a": "XMLHttpRequest"
+      },
+      {
+        "b": "jQuery.ajax()"
+      },
+      {
+        "c": "fetch()"
+      },
+      {
+        "d": "axios.get()"
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "fetch() is the native, promise-based API introduced in modern browsers, making it the standard and recommended choice for new development without external libraries. XMLHttpRequest is the older, more verbose traditional API. jQuery.ajax() is a convenient wrapper, but requires the jQuery library. axios.get() is from a popular third-party library (Axios), not a native browser API."
+  },
+  {
+    "question": "When sending sensitive information like an API key from a client-side (browser) JavaScript application to a server, which of the following is the **MOST secure** practice for production environments? (Variant 22)",
+    "options": [
+      {
+        "a": "Hardcoding the API key directly into the JavaScript file."
+      },
+      {
+        "b": "Storing the API key in a publicly accessible environment variable on the client."
+      },
+      {
+        "c": "Making the API call from a secure backend server where the API key is stored privately."
+      },
+      {
+        "d": "Obfuscating the API key within the client-side JavaScript code."
+      }
+    ],
+    "correct_answer": "c",
+    "explanation": "Hardcoding the API key is extremely insecure. Storing in publicly accessible environment variables is also insecure. Obfuscating is a weak form of security. The most secure method is to make the API call from a secure backend server where the sensitive key never leaves your server."
+  },
+  {
+    "question": "On Hostinger's hPanel for shared or cloud hosting, what type of database is primarily offered and managed through the 'MySQL Databases' section? (Variant 23)",
+    "options": [
+      {
+        "a": "Microsoft SQL Server (MS SQL)"
+      },
+      {
+        "b": "PostgreSQL"
+      },
+      {
+        "c": "Oracle Database"
+      },
+      {
+        "d": "MySQL/MariaDB"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "Hostinger's hPanel primarily provides built-in tools for managing MySQL/MariaDB databases on their shared and most cloud hosting plans. MS SQL requires a Windows VPS and manual installation."
+  },
+  {
+    "question": "To get the configuration file for a specific website (server block) that is currently active and being used by Nginx on a Linux server, which directory would you typically look into? (Variant 24)",
+    "options": [
+      {
+        "a": "/etc/nginx/conf.d/"
+      },
+      {
+        "b": "/etc/nginx/nginx.conf/"
+      },
+      {
+        "c": "/etc/nginx/sites-available/"
+      },
+      {
+        "d": "/etc/nginx/sites-enabled/"
+      }
+    ],
+    "correct_answer": "d",
+    "explanation": "`sites-enabled/` contains symbolic links to the configuration files in `sites-available/` that are currently active. `sites-available/` holds all potential configurations, but only those linked into `sites-enabled/` are active. `nginx.conf` is the main config, and `conf.d/` holds general snippets."
+  },
+  {
+    "question": "In the context of proctoring with Python, what is the primary purpose of 'Liveness Detection' or 'Anti-Spoofing' APIs? (Variant 25)",
     "options": [
       {
         "a": "To check if the student has a stable internet connection."

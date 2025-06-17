@@ -58,10 +58,83 @@ const QuizApp = () => {
     }
   }, [currentQuestionIndex, answers, questions]);
 
+  useEffect(() => {
+  // Prevent copy, cut, and right-click
+  const preventDefault = (e) => e.preventDefault();
+  document.addEventListener("copy", preventDefault);
+  document.addEventListener("cut", preventDefault);
+  document.addEventListener("contextmenu", preventDefault);
+  document.body.style.userSelect = "none";
+
+  // Warn on close
+  const handleBeforeUnload = (e) => {
+    e.preventDefault();
+    e.returnValue = "";
+  };
+  window.addEventListener("beforeunload", handleBeforeUnload);
+
+  // Tab switch = auto-submit
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      alert("Tab switch detected. Submitting your test.");
+      handleSubmitTest();
+    }
+  };
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+
+  // Force fullscreen
+  const goFullScreen = () => {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  };
+  goFullScreen();
+
+  // Exit fullscreen = auto-submit
+  const handleFullScreenChange = () => {
+    if (!document.fullscreenElement) {
+      alert("Fullscreen exited. Submitting your test.");
+      handleSubmitTest();
+    }
+  };
+  document.addEventListener("fullscreenchange", handleFullScreenChange);
+
+  // DevTools open = auto-submit
+  const blockInspect = (e) => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+      alert("Inspect action detected. Submitting your test.");
+      handleSubmitTest();
+    }
+  };
+  window.addEventListener("keydown", blockInspect);
+
+  // Cleanup
+  return () => {
+    document.removeEventListener("copy", preventDefault);
+    document.removeEventListener("cut", preventDefault);
+    document.removeEventListener("contextmenu", preventDefault);
+    window.removeEventListener("beforeunload", handleBeforeUnload);
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    window.removeEventListener("keydown", blockInspect);
+    document.body.style.userSelect = "auto";
+  };
+}, []);
+
+
   const formatTime = (seconds) => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
-    return `${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
+    return `${min.toString().padStart(2, "0")}:${sec
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const handleOptionSelect = (index) => {
@@ -92,10 +165,10 @@ const QuizApp = () => {
   const currentQ = questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-white text-black px-10 py-10">
+    <div className="min-h-screen bg-white text-black px-10 py-7">
       <div className="flex flex-col lg:flex-row gap-10">
         <div className="flex-1 flex flex-col space-y-5">
-          <div className="bg-white rounded-xl px-5 py-5 border border-gray-300">
+          <div className="bg-white rounded-xl px-5 py-6 border border-gray-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-2xl font-bold">📘 Subject: Quiz</h1>
               <h2 className="text-xl font-semibold">
@@ -105,8 +178,11 @@ const QuizApp = () => {
           </div>
 
           <div className="rounded-xl border border-gray-300 flex flex-col justify-between">
-            <div className="bg-white p-5 rounded-xl" style={{ minHeight: "300px" }}>
-              <div>
+            <div
+              className="bg-white p-5 rounded-xl"
+              style={{ minHeight: "300px" }}
+            >
+              <div className="pb-1.5">
                 <h3 className="text-lg font-medium mb-2">
                   Question {currentQuestionIndex + 1}
                 </h3>
@@ -117,7 +193,7 @@ const QuizApp = () => {
                     <div
                       key={index}
                       onClick={() => handleOptionSelect(index)}
-                      className={`p-3 rounded-lg border border-gray-300 cursor-pointer transition-colors duration-200 ${
+                      className={`p-4 rounded-lg border border-gray-300 cursor-pointer transition-colors duration-200 ${
                         answers[currentQuestionIndex] === index
                           ? "bg-blue-300"
                           : "hover:bg-gray-100"
@@ -131,7 +207,7 @@ const QuizApp = () => {
             </div>
 
             <div className="flex justify-center">
-              <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-center bg-white border-t p-3 border-gray-300 rounded-bl-xl rounded-br-xl gap-3 sm:gap-4">
+              <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-center bg-white border-t p-5 border-gray-300 rounded-bl-xl rounded-br-xl gap-3 sm:gap-4">
                 {timeLeft === 0 ? (
                   <Button
                     onClick={handleSubmitTest}
@@ -144,7 +220,9 @@ const QuizApp = () => {
                     {currentQuestionIndex > 0 && (
                       <Button
                         onClick={() =>
-                          setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))
+                          setCurrentQuestionIndex((prev) =>
+                            Math.max(prev - 1, 0)
+                          )
                         }
                         className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
                       >
@@ -168,9 +246,13 @@ const QuizApp = () => {
                     {currentQuestionIndex < questions.length - 1 && (
                       <Button
                         onClick={() => {
-                          const isMarked = markedForReview[currentQuestionIndex];
+                          const isMarked =
+                            markedForReview[currentQuestionIndex];
                           toggleMarkForReview(currentQuestionIndex);
-                          if (!isMarked && currentQuestionIndex < questions.length - 1) {
+                          if (
+                            !isMarked &&
+                            currentQuestionIndex < questions.length - 1
+                          ) {
                             setCurrentQuestionIndex(currentQuestionIndex + 1);
                           }
                         }}
@@ -180,7 +262,9 @@ const QuizApp = () => {
                             : "bg-blue-400 hover:bg-blue-500"
                         }`}
                       >
-                        {markedForReview[currentQuestionIndex] ? "Unmark" : "Mark for Review"}
+                        {markedForReview[currentQuestionIndex]
+                          ? "Unmark"
+                          : "Mark for Review"}
                       </Button>
                     )}
                   </>
@@ -206,18 +290,19 @@ const QuizApp = () => {
               <h3 className="text-lg font-semibold mb-4 border-b border-gray-300 pb-3">
                 Question Analysis
               </h3>
-              <div className="flex gap-2 flex-wrap mb-3 max-h-80 overflow-y-auto">
+              <div className="flex gap-3 flex-wrap mb-3 max-h-88 overflow-y-auto">
                 {questions.map((_, i) => (
                   <button
                     key={i}
                     onClick={() => setCurrentQuestionIndex(i)}
-                    className={`py-3 px-5 rounded-lg border border-gray-300 text-sm font-medium cursor-pointer ${
-                      markedForReview[i]
-                        ? "bg-red-400 text-white"
-                        : answers[i] !== null
-                        ? "bg-blue-300 text-white"
-                        : "bg-white text-black hover:bg-gray-100"
-                    }`}
+                    className={`w-10 h-10 md:w-12 md:h-12 inline-flex justify-center items-center rounded-lg border border-gray-300 text-sm font-medium cursor-pointer
+        ${
+          markedForReview[i]
+            ? "bg-red-400 text-white"
+            : answers[i] !== null
+            ? "bg-blue-300 text-white"
+            : "bg-white text-black hover:bg-gray-100"
+        }`}
                   >
                     {i + 1}
                   </button>

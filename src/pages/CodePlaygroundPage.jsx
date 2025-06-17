@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import axios from "axios";
 import { Button } from "../components/button";
@@ -86,6 +86,63 @@ const CodePlaygroundPage = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+  // Prevent copy, right-click, and text selection
+  const preventActions = (e) => e.preventDefault();
+  document.addEventListener("contextmenu", preventActions);
+  document.addEventListener("copy", preventActions);
+  document.addEventListener("cut", preventActions);
+  document.addEventListener("selectstart", preventActions);
+
+  // Auto-submit on tab switch or blur
+  const handleVisibilityChange = () => {
+    if (document.hidden) {
+      alert("Tab switch detected. Test will be auto-submitted.");
+      navigate("/tabs");
+    }
+  };
+  const handleBlur = () => {
+    alert("Window lost focus. Test will be auto-submitted.");
+    navigate("/tabs");
+  };
+  document.addEventListener("visibilitychange", handleVisibilityChange);
+  window.addEventListener("blur", handleBlur);
+
+  // Disable DevTools shortcuts
+  const disableDevTools = (e) => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
+      alert("Developer tools blocked. Test will be auto-submitted.");
+      navigate("/tabs");
+    }
+  };
+  document.addEventListener("keydown", disableDevTools);
+
+  // Request full screen
+  const goFullScreen = () => {
+    const el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+    else if (el.msRequestFullscreen) el.msRequestFullscreen();
+  };
+  goFullScreen();
+
+  return () => {
+    document.removeEventListener("contextmenu", preventActions);
+    document.removeEventListener("copy", preventActions);
+    document.removeEventListener("cut", preventActions);
+    document.removeEventListener("selectstart", preventActions);
+    document.removeEventListener("visibilitychange", handleVisibilityChange);
+    window.removeEventListener("blur", handleBlur);
+    document.removeEventListener("keydown", disableDevTools);
+  };
+}, []);
+
 
   return (
     <div className="min-h-screen bg-white text-black px-6 py-8">
