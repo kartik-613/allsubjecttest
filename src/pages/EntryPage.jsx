@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/button";
+import InputField from "../components/InputField";
+import OtpSection from "../components/OtpSection";
 import miracleFullLogo from "../assets/miracleFullLogo.png";
 
 const EntryPage = () => {
@@ -19,9 +21,7 @@ const EntryPage = () => {
   const [otpVerified, setOtpVerified] = useState(false);
   const [timer, setTimer] = useState(0);
 
-  const startTimer = () => {
-    setTimer(60);
-  };
+  const startTimer = () => setTimer(60);
 
   useEffect(() => {
     if (timer > 0) {
@@ -30,33 +30,26 @@ const EntryPage = () => {
     }
   }, [timer]);
 
+  useEffect(() => {
+    if (otpSent && !otpVerified) {
+      document.querySelector("input[name='otp']")?.focus();
+    }
+  }, [otpSent]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setEntryData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setEntryData((prev) => ({ ...prev, [name]: value }));
 
     // Real-time validation
     let error = "";
-
-    if (name === "name" && !value.trim()) {
-      error = "Name is required.";
-    }
-
-    if (name === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+    if (name === "name" && !value.trim()) error = "Name is required.";
+    if (name === "email" && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
       error = "Please enter a valid email address.";
-    }
-
-    if (name === "mobile" && value && !/^[6-9]\d{0,9}$/.test(value)) {
+    if (name === "mobile" && value && !/^[6-9]\d{0,9}$/.test(value))
       error = "Enter a valid Indian mobile number.";
-    }
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: error,
-    }));
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const validateInputs = () => {
@@ -96,7 +89,6 @@ const EntryPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="h-16 bg-blue-400 w-full" />
-
       <div className="flex justify-center p-4 sm:p-10">
         <div className="w-full max-w-md border border-gray-300 rounded-xl p-5 bg-white shadow">
           <img
@@ -106,46 +98,34 @@ const EntryPage = () => {
           />
 
           <div className="grid grid-cols-1 gap-4">
-            <div>
-              <input
-                type="text"
-                name="name"
-                value={entryData.name}
-                onChange={handleChange}
-                placeholder="Full Name"
-                autoComplete="name"
-                className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
-              />
-              {errors.name && <p className="text-red-600 text-sm mt-1">{errors.name}</p>}
-            </div>
+            <InputField
+              type="text"
+              name="name"
+              value={entryData.name}
+              onChange={handleChange}
+              placeholder="Full Name"
+              error={errors.name}
+            />
 
-            <div>
-              <input
-                type="email"
-                name="email"
-                value={entryData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                autoComplete="email"
-                className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
-              />
-              {errors.email && <p className="text-red-600 text-sm mt-1">{errors.email}</p>}
-            </div>
+            <InputField
+              type="email"
+              name="email"
+              value={entryData.email}
+              onChange={handleChange}
+              placeholder="Email"
+              error={errors.email}
+            />
 
-            <div>
-              <input
-                type="tel"
-                name="mobile"
-                value={entryData.mobile}
-                onChange={(e) => {
-                  if (e.target.value.length <= 10) handleChange(e);
-                }}
-                placeholder="Mobile Number"
-                autoComplete="tel"
-                className="border border-gray-300 p-2 rounded outline-none text-sm w-full"
-              />
-              {errors.mobile && <p className="text-red-600 text-sm mt-1">{errors.mobile}</p>}
-            </div>
+            <InputField
+              type="tel"
+              name="mobile"
+              value={entryData.mobile}
+              onChange={(e) => {
+                if (/^\d{0,10}$/.test(e.target.value)) handleChange(e);
+              }}
+              placeholder="Mobile Number"
+              error={errors.mobile}
+            />
 
             <Button
               type="button"
@@ -161,28 +141,13 @@ const EntryPage = () => {
             </Button>
 
             {otpSent && (
-              <>
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <input
-                    type="text"
-                    name="otp"
-                    value={entryData.otp}
-                    onChange={handleChange}
-                    placeholder="Enter OTP"
-                    className="flex-1 border border-gray-300 p-2 rounded outline-none text-sm"
-                  />
-                  <Button
-                    type="button"
-                    onClick={verifyOtp}
-                    className="bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded text-sm"
-                  >
-                    Verify
-                  </Button>
-                </div>
-                {otpVerified && (
-                  <p className="text-green-600 text-sm">✅ OTP Verified! Redirecting...</p>
-                )}
-              </>
+              <OtpSection
+                otp={entryData.otp}
+                onChange={handleChange}
+                onVerify={verifyOtp}
+                otpVerified={otpVerified}
+                disabled={!entryData.otp}
+              />
             )}
           </div>
         </div>

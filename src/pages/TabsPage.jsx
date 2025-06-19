@@ -193,7 +193,6 @@ const TabsPage = () => {
     email: "adas@university.edu",
     avatar: "https://i.pravatar.cc/100?img=11",
   },
-,
   {
     name: "Ms. N. Rao",
     subject: "Computer Science",
