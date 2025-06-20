@@ -506,25 +506,43 @@ const QuizApp = () => {
   }, []);
 
   // Periodic screen capture from camera
-  useEffect(() => {
-    if (!cameraActive) return;
+useEffect(() => {
+  if (!cameraActive) return;
 
-    const interval = setInterval(() => {
-      const canvas = canvasRef.current;
-      const video = videoRef.current;
-      if (canvas && video) {
-        const context = canvas.getContext("2d");
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const interval = setInterval(() => {
+    const canvas = canvasRef.current;
+    const video = videoRef.current;
 
-        const imageData = canvas.toDataURL("image/png");
-        console.log("Captured screenshot");
+    if (canvas && video) {
+      const context = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        // Optional: Upload
-        // axios.post('/api/upload-snapshot', { image: imageData });
-      }
-    }, 60000); // every 60 seconds
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+
+        const formData = new FormData();
+        formData.append("file", blob, `screenshot_${Date.now()}.png`);
+
+        try {
+          await axios.post(
+            `${process.env.REACT_APP_API_PATH}/api/FileAPI/UploadFiles`,
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                "APIKEY": process.env.REACT_APP_API_KEY,
+              },
+            }
+          );
+          console.log("Screenshot uploaded");
+        } catch (error) {
+          console.error("Upload failed:", error);
+        }
+      }, "image/png");
+    }
+  }, 60000); // every 60 seconds
 
     return () => clearInterval(interval);
   }, [cameraActive]);
