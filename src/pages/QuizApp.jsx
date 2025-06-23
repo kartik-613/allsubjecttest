@@ -354,10 +354,15 @@
 
 
 
+
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Button } from "../components/button";
+import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
+
+const API_CALL = import.meta.env.VITE_API_URL_PATH;
+const API_KEY = import.meta.env.VITE_API_URL_KEY;
+// console.log('hgjhghhgf',API_CALL , API_KEY);
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
@@ -431,14 +436,18 @@ const QuizApp = () => {
     const handleBeforeUnload = (e) => {
       e.preventDefault();
       e.returnValue = "";
-      setSecurityBreachMessage("Exit attempt detected. Do you want to exit and submit or continue your test?");
+      setSecurityBreachMessage(
+        "Exit attempt detected. Do you want to exit and submit or continue your test?"
+      );
       setShowExitWarning(true);
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        setSecurityBreachMessage("Tab switch detected. Do you want to exit and submit or continue your test?");
+        setSecurityBreachMessage(
+          "Tab switch detected. Do you want to exit and submit or continue your test?"
+        );
         setShowExitWarning(true);
       }
     };
@@ -455,24 +464,26 @@ const QuizApp = () => {
 
     const handleFullScreenChange = () => {
       if (!document.fullscreenElement) {
-        setSecurityBreachMessage("Fullscreen exited. Do you want to exit and submit or continue your test?");
+        setSecurityBreachMessage(
+          "Fullscreen exited. Do you want to exit and submit or continue your test?"
+        );
         setShowExitWarning(true);
       }
     };
     document.addEventListener("fullscreenchange", handleFullScreenChange);
 
-    const blockInspect = (e) => {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-        (e.ctrlKey && e.key === "U")
-      ) {
-        e.preventDefault();
-        setSecurityBreachMessage("Inspect action detected. Do you want to exit and submit or continue your test?");
-        setShowExitWarning(true);
-      }
-    };
-    window.addEventListener("keydown", blockInspect);
+    // const blockInspect = (e) => {
+    //   if (
+    //     e.key === "F12" ||
+    //     (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+    //     (e.ctrlKey && e.key === "U")
+    //   ) {
+    //     e.preventDefault();
+    //     setSecurityBreachMessage("Inspect action detected. Do you want to exit and submit or continue your test?");
+    //     setShowExitWarning(true);
+    //   }
+    // };
+    // window.addEventListener("keydown", blockInspect);
 
     const handleBackButton = (e) => {
       e.preventDefault();
@@ -482,7 +493,8 @@ const QuizApp = () => {
     window.addEventListener("popstate", handleBackButton);
 
     // Start webcam
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
       .then((stream) => {
         videoRef.current.srcObject = stream;
         setCameraActive(true);
@@ -500,49 +512,63 @@ const QuizApp = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
-      window.removeEventListener("keydown", blockInspect);
+      // window.removeEventListener("keydown", blockInspect);
       window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
 
   // Periodic screen capture from camera
-useEffect(() => {
-  if (!cameraActive) return;
+  useEffect(() => {
+    if (!cameraActive) return;
 
-  const interval = setInterval(() => {
-    const canvas = canvasRef.current;
-    const video = videoRef.current;
+    const interval = setInterval(() => {
+      const canvas = canvasRef.current;
+      const video = videoRef.current;
+      console.log(canvas, video);
 
-    if (canvas && video) {
-      const context = canvas.getContext("2d");
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      if (canvas && video) {
+        const context = canvas.getContext("2d");
 
-      canvas.toBlob(async (blob) => {
-        if (!blob) return;
+        if (video.videoWidth === 0 || video.videoHeight === 0) return;
 
-        const formData = new FormData();
-        formData.append("file", blob, `screenshot_${Date.now()}.png`);
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        try {
-          await axios.post(
-            `${process.env.REACT_APP_API_PATH}/api/FileAPI/UploadFiles`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                "APIKEY": process.env.REACT_APP_API_KEY,
-              },
-            }
-          );
-          console.log("Screenshot uploaded");
-        } catch (error) {
-          console.error("Upload failed:", error);
-        }
-      }, "image/png");
-    }
-  }, 60000); // every 60 seconds
+        canvas.toBlob(async (blob) => {
+          if (!blob) return;
+
+          const formData = new FormData();
+          formData.append("file", blob, `screenshot_${Date.now()}.png`);
+            console.log("Uploading screenshot", formData.getAll("file"));
+
+          try {
+            const a = await axios.post(
+
+              `${API_CALL}/api/FileAPI/UploadFiles`,
+              formData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  // "APIKEY": API_KEY ,
+                },
+                params: {
+                  APIKEY: API_KEY,
+                },
+              }
+            );
+            console.log("Upload response:", a.data);
+            
+            console.log("Screenshot uploaded");
+          } catch (error) {
+            console.error("Upload failed:", error);
+          }
+        }, "image/png");
+
+
+      }
+    }, 60000); // every 60 seconds
+    
 
     return () => clearInterval(interval);
   }, [cameraActive]);
@@ -550,7 +576,9 @@ useEffect(() => {
   const formatTime = (seconds) => {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
-    return `${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
+    return `${min.toString().padStart(2, "0")}:${sec
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   const handleOptionSelect = (index) => {
@@ -568,6 +596,16 @@ useEffect(() => {
   };
 
   const handleSubmitTest = () => {
+    // Stop the camera
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject;
+      const tracks = stream.getTracks();
+
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+
+    // Navigate to the result page
     navigate("/tabs");
   };
 
@@ -578,6 +616,8 @@ useEffect(() => {
   }
 
   const currentQ = questions[currentQuestionIndex];
+
+
 
   return (
     <div className="min-h-screen bg-white text-black px-10 py-7">
@@ -598,9 +638,14 @@ useEffect(() => {
           </div>
 
           <div className="rounded-xl border border-gray-300 flex flex-col justify-between">
-            <div className="bg-white p-5 rounded-xl" style={{ minHeight: "300px" }}>
+            <div
+              className="bg-white p-5 rounded-xl"
+              style={{ minHeight: "300px" }}
+            >
               <div className="pb-1.5">
-                <h3 className="text-lg font-medium mb-2">Question {currentQuestionIndex + 1}</h3>
+                <h3 className="text-lg font-medium mb-2">
+                  Question {currentQuestionIndex + 1}
+                </h3>
                 <p className="mb-2 min-h-[60px]">{currentQ.question}</p>
                 <div className="space-y-3">
                   {currentQ.options.map((option, index) => (
@@ -623,19 +668,36 @@ useEffect(() => {
             <div className="flex justify-center">
               <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-center bg-white border-t p-5 border-gray-300 rounded-bl-xl rounded-br-xl gap-3 sm:gap-4">
                 {timeLeft === 0 ? (
-                  <Button onClick={handleSubmitTest} className="bg-green-500 hover:bg-green-600 text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto">
+                  <Button
+                    onClick={handleSubmitTest}
+                    className="bg-green-500 hover:bg-green-600 text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
+                  >
                     Submit Test
                   </Button>
                 ) : (
                   <>
                     {currentQuestionIndex > 0 && (
-                      <Button onClick={() => setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))} className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto">
+                      <Button
+                        onClick={() =>
+                          setCurrentQuestionIndex((prev) =>
+                            Math.max(prev - 1, 0)
+                          )
+                        }
+                        className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
+                      >
                         Previous
                       </Button>
                     )}
 
                     {currentQuestionIndex < questions.length - 1 && (
-                      <Button onClick={() => setCurrentQuestionIndex((prev) => Math.min(prev + 1, questions.length - 1))} className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto">
+                      <Button
+                        onClick={() =>
+                          setCurrentQuestionIndex((prev) =>
+                            Math.min(prev + 1, questions.length - 1)
+                          )
+                        }
+                        className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
+                      >
                         Next
                       </Button>
                     )}
@@ -643,9 +705,13 @@ useEffect(() => {
                     {currentQuestionIndex < questions.length - 1 && (
                       <Button
                         onClick={() => {
-                          const isMarked = markedForReview[currentQuestionIndex];
+                          const isMarked =
+                            markedForReview[currentQuestionIndex];
                           toggleMarkForReview(currentQuestionIndex);
-                          if (!isMarked && currentQuestionIndex < questions.length - 1) {
+                          if (
+                            !isMarked &&
+                            currentQuestionIndex < questions.length - 1
+                          ) {
                             setCurrentQuestionIndex(currentQuestionIndex + 1);
                           }
                         }}
@@ -655,7 +721,9 @@ useEffect(() => {
                             : "bg-blue-400 hover:bg-blue-500"
                         }`}
                       >
-                        {markedForReview[currentQuestionIndex] ? "Unmark" : "Mark for Review"}
+                        {markedForReview[currentQuestionIndex]
+                          ? "Unmark"
+                          : "Mark for Review"}
                       </Button>
                     )}
                   </>
@@ -669,12 +737,18 @@ useEffect(() => {
         <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white">
           <div className="p-5">
             <div className="flex items-center gap-5 border-b border-gray-300 pb-3 mb-3">
-              <div className="rounded-full p-5 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">Ab</div>
-              <div><h1 className="text-lg font-medium">User</h1></div>
+              <div className="rounded-full p-5 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">
+                Ab
+              </div>
+              <div>
+                <h1 className="text-lg font-medium">User</h1>
+              </div>
             </div>
 
             <div className="border-b border-gray-300 pb-1">
-              <h3 className="text-lg font-semibold mb-4 border-b border-gray-300 pb-3">Question Analysis</h3>
+              <h3 className="text-lg font-semibold mb-4 border-b border-gray-300 pb-3">
+                Question Analysis
+              </h3>
               <div className="flex gap-3 flex-wrap mb-3 max-h-88 overflow-y-auto">
                 {questions.map((_, i) => (
                   <button
@@ -706,9 +780,12 @@ useEffect(() => {
       {showExitWarning && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
-            <h2 className="text-xl font-bold text-red-600 mb-4">Exit Warning</h2>
+            <h2 className="text-xl font-bold text-red-600 mb-4">
+              Exit Warning
+            </h2>
             <p className="mb-6">
-              {securityBreachMessage || "You're trying to exit the test. Do you want to continue or exit and submit?"}
+              {securityBreachMessage ||
+                "You're trying to exit the test. Do you want to continue or exit and submit?"}
             </p>
             <div className="flex justify-center gap-4">
               <button

@@ -1,6 +1,6 @@
 // 📁 src/components/form/Sidebar.jsx
 import React from "react";
-import { Button } from "../button";
+import { Button } from "../Button";
 
 const Sidebar = ({ onSubmit }) => (
   <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white lg:sticky lg:top-8">

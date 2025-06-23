@@ -2,7 +2,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button } from "../button";
+import { Button } from "../Button";
 
 const DateAndSubmit = ({ startDate, endDate, onDateChange, onSubmit }) => (
   <div className="col-span-1 md:col-span-2 flex flex-col md:flex-row items-center gap-4 justify-between">

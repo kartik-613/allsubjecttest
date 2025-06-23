@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../components/button";
-import InputField from "../components/InputField";
-import OtpSection from "../components/OtpSection";
+import InputField from "../components/entryPage/InputField";
 import miracleFullLogo from "../assets/miracleFullLogo.png";
+import OtpSection from "../components/EntryPage/OtpSection";
+import Button from "../components/Button";
 
 const EntryPage = () => {
   const navigate = useNavigate();

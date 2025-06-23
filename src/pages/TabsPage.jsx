@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Button } from "../components/button";
-import ResultTab from "./TabsPage/ResultTab";
-import CourseTab from "./TabsPage/CourseTab";
-import ContactTab from "./TabsPage/ContactTab";
+import { Button } from "../components/Button";
+import ResultTab from "../components/TabsPage/ResultTab";
+import CourseTab from "../components/TabsPage/CourseTab";
+import ContactTab from "../components/TabsPage/ContactTab";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

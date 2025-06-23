@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TestTypeSelector from "../components/form/TestTypeSelector";
-import TopicSelector from "../components/form/TopicSelector";
-import CourseMultiSelect from "../components/form/CourseMultiSelect";
-import AdditionalFields from "../components/form/AdditionalFields";
-import DateAndSubmit from "../components/form/DateAndSubmit";
-import Sidebar from "../components/form/Sidebar";
+import TestTypeSelector from "../components/formPage/TestTypeSelector";
+import TopicSelector from "../components/formPage/TopicSelector";
+import CourseMultiSelect from "../components/formPage/CourseMultiSelect";
+import AdditionalFields from "../components/formPage/AdditionalFields";
+import DateAndSubmit from "../components/formPage/DateAndSubmit";
+import Sidebar from "../components/formPage/Sidebar";
 
 const FormPage = () => {
   const navigate = useNavigate();
