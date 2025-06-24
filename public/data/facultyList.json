@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Dr. A. Sharma",
+    "subject": "Mathematics",
+    "email": "asharma@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=1"
+  },
+  {
+    "name": "Prof. R. Verma",
+    "subject": "Physics",
+    "email": "rverma@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=2"
+  },
+  {
+    "name": "Prof. V. Mehta",
+    "subject": "Statistics",
+    "email": "vmehta@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=8"
+  },
+  {
+    "name": "Ms. H. Joshi",
+    "subject": "History",
+    "email": "hjoshi@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=9"
+  },
+  {
+    "name": "Dr. R. Singh",
+    "subject": "Political Science",
+    "email": "rsingh@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=10"
+  },
+  {
+    "name": "Prof. A. Das",
+    "subject": "Geography",
+    "email": "adas@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=11"
+  },
+  {
+    "name": "Ms. M. Khan",
+    "subject": "Philosophy",
+    "email": "mkhan@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=12"
+  },
+  {
+    "name": "Prof. V. Mehta",
+    "subject": "Statistics",
+    "email": "vmehta@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=8"
+  },
+  {
+    "name": "Ms. H. Joshi",
+    "subject": "History",
+    "email": "hjoshi@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=9"
+  },
+  {
+    "name": "Dr. R. Singh",
+    "subject": "Political Science",
+    "email": "rsingh@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=10"
+  },
+  {
+    "name": "Prof. A. Das",
+    "subject": "Geography",
+    "email": "adas@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=11"
+  },
+  {
+    "name": "Ms. N. Rao",
+    "subject": "Computer Science",
+    "email": "nrao@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=3"
+  },
+  {
+    "name": "Dr. S. Gupta",
+    "subject": "Chemistry",
+    "email": "sgupta@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=4"
+  },
+  {
+    "name": "Mr. K. Iyer",
+    "subject": "Biology",
+    "email": "kiyer@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=5"
+  },
+  {
+    "name": "Ms. T. Desai",
+    "subject": "English",
+    "email": "tdesai@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=6"
+  },
+  {
+    "name": "Dr. P. Reddy",
+    "subject": "Economics",
+    "email": "preddy@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=7"
+  },
+  {
+    "name": "Prof. V. Mehta",
+    "subject": "Statistics",
+    "email": "vmehta@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=8"
+  },
+  {
+    "name": "Ms. H. Joshi",
+    "subject": "History",
+    "email": "hjoshi@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=9"
+  },
+  {
+    "name": "Dr. R. Singh",
+    "subject": "Political Science",
+    "email": "rsingh@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=10"
+  },
+  {
+    "name": "Prof. A. Das",
+    "subject": "Geography",
+    "email": "adas@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=11"
+  },
+  {
+    "name": "Ms. M. Khan",
+    "subject": "Philosophy",
+    "email": "mkhan@university.edu",
+    "avatar": "https://i.pravatar.cc/100?img=12"
+  }
+]

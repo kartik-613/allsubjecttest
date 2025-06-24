@@ -1,7 +1,14 @@
-// import React, { useState, useEffect } from "react";
+// import React, { useState, useEffect, useRef } from "react";
 // import axios from "axios";
-// import { Button } from "../components/button";
 // import { useNavigate } from "react-router-dom";
+
+// import QuestionCard from "../components/quizApp/QuestionCard";
+// import NavigationButtons from "../components/quizApp/NavigationButtons";
+// import Sidebar from "../components/quizApp/Sidebar";
+// import ExitWarningModal from "../components/quizApp/ExitWarningModal";
+
+// const API_CALL = import.meta.env.VITE_API_URL_PATH;
+// const API_KEY = import.meta.env.VITE_API_URL_KEY;
 
 // const QuizApp = () => {
 //   const [questions, setQuestions] = useState([]);
@@ -12,7 +19,12 @@
 //   const [loading, setLoading] = useState(true);
 //   const [markedForReview, setMarkedForReview] = useState({});
 //   const [showExitWarning, setShowExitWarning] = useState(false);
-//   const [unloadWarningCount, setUnloadWarningCount] = useState(0);
+//   const [securityBreachMessage, setSecurityBreachMessage] = useState("");
+
+//   const [cameraActive, setCameraActive] = useState(false);
+//   const videoRef = useRef(null);
+//   const canvasRef = useRef(null);
+
 //   const navigate = useNavigate();
 
 //   useEffect(() => {
@@ -70,20 +82,19 @@
 //     const handleBeforeUnload = (e) => {
 //       e.preventDefault();
 //       e.returnValue = "";
-
-//       if (unloadWarningCount < 2) {
-//         setUnloadWarningCount((prev) => prev + 1);
-//         setShowExitWarning(true);
-//       } else {
-//         handleSubmitTest();
-//       }
+//       setSecurityBreachMessage(
+//         "Exit attempt detected. Do you want to exit and submit or continue your test?"
+//       );
+//       setShowExitWarning(true);
 //     };
 //     window.addEventListener("beforeunload", handleBeforeUnload);
 
 //     const handleVisibilityChange = () => {
 //       if (document.hidden) {
-//         alert("Tab switch detected. Submitting your test.");
-//         handleSubmitTest();
+//         setSecurityBreachMessage(
+//           "Tab switch detected. Do you want to exit and submit or continue your test?"
+//         );
+//         setShowExitWarning(true);
 //       }
 //     };
 //     document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -99,24 +110,13 @@
 
 //     const handleFullScreenChange = () => {
 //       if (!document.fullscreenElement) {
-//         alert("Fullscreen exited. Submitting your test.");
-//         handleSubmitTest();
+//         setSecurityBreachMessage(
+//           "Fullscreen exited. Do you want to exit and submit or continue your test?"
+//         );
+//         setShowExitWarning(true);
 //       }
 //     };
 //     document.addEventListener("fullscreenchange", handleFullScreenChange);
-
-//     const blockInspect = (e) => {
-//       if (
-//         e.key === "F12" ||
-//         (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-//         (e.ctrlKey && e.key === "U")
-//       ) {
-//         e.preventDefault();
-//         alert("Inspect action detected. Submitting your test.");
-//         handleSubmitTest();
-//       }
-//     };
-//     window.addEventListener("keydown", blockInspect);
 
 //     const handleBackButton = (e) => {
 //       e.preventDefault();
@@ -125,25 +125,84 @@
 //     window.history.pushState(null, "", window.location.href);
 //     window.addEventListener("popstate", handleBackButton);
 
+//     navigator.mediaDevices
+//       .getUserMedia({ video: true })
+//       .then((stream) => {
+//         videoRef.current.srcObject = stream;
+//         setCameraActive(true);
+//       })
+//       .catch((err) => {
+//         console.error("Camera access denied:", err);
+//         setCameraActive(false);
+//       });
+
 //     return () => {
 //       document.removeEventListener("copy", preventDefault);
 //       document.removeEventListener("cut", preventDefault);
 //       document.removeEventListener("contextmenu", preventDefault);
 //       document.body.style.userSelect = "auto";
-
 //       window.removeEventListener("beforeunload", handleBeforeUnload);
 //       document.removeEventListener("visibilitychange", handleVisibilityChange);
 //       document.removeEventListener("fullscreenchange", handleFullScreenChange);
-//       window.removeEventListener("keydown", blockInspect);
 //       window.removeEventListener("popstate", handleBackButton);
 //     };
-//   }, [unloadWarningCount]);
+//   }, []);
 
-//   const formatTime = (seconds) => {
-//     const min = Math.floor(seconds / 60);
-//     const sec = seconds % 60;
-//     return `${min.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
-//   };
+//   useEffect(() => {
+//     if (!cameraActive) return;
+
+//     const interval = setInterval(() => {
+//       const canvas = canvasRef.current;
+//       const video = videoRef.current;
+
+//       if (
+//         !canvas ||
+//         !video ||
+//         video.videoWidth === 0 ||
+//         video.videoHeight === 0
+//       )
+//         return;
+
+//       const context = canvas.getContext("2d");
+//       canvas.width = video.videoWidth;
+//       canvas.height = video.videoHeight;
+//       context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+//       const compressedCanvas = document.createElement("canvas");
+//       const ctx = compressedCanvas.getContext("2d");
+//       compressedCanvas.width = video.videoWidth * 0.5;
+//       compressedCanvas.height = video.videoHeight * 0.5;
+//       ctx.drawImage(
+//         video,
+//         0,
+//         0,
+//         compressedCanvas.width,
+//         compressedCanvas.height
+//       );
+
+//       compressedCanvas.toBlob(
+//         async (blob) => {
+//           if (!blob) return;
+
+//           const formData = new FormData();
+//           formData.append("file", blob, `screenshot_${Date.now()}.jpg`);
+
+//           try {
+//             await axios.post(`${API_CALL}/api/FileAPI/UploadFiles`, formData, {
+//               headers: { "Content-Type": "multipart/form-data" },
+//               params: { APIKEY: API_KEY },
+//             });
+//           } catch (error) {
+//             console.error("Upload failed:", error);
+//           }
+//         },
+//         "image/jpeg",
+//         0.6
+//       );
+//     }, 60000);
+
+//     return () => clearInterval(interval);
+//   }, [cameraActive]);
 
 //   const handleOptionSelect = (index) => {
 //     const updatedAnswers = [...answers];
@@ -160,6 +219,11 @@
 //   };
 
 //   const handleSubmitTest = () => {
+//     if (videoRef.current && videoRef.current.srcObject) {
+//       const stream = videoRef.current.srcObject;
+//       stream.getTracks().forEach((track) => track.stop());
+//       videoRef.current.srcObject = null;
+//     }
 //     navigate("/tabs");
 //   };
 
@@ -173,165 +237,81 @@
 
 //   return (
 //     <div className="min-h-screen bg-white text-black px-10 py-7">
+//       <video ref={videoRef} autoPlay playsInline className="hidden" />
+//       <canvas ref={canvasRef} className="hidden" />
+
 //       <div className="flex flex-col lg:flex-row gap-10">
 //         <div className="flex-1 flex flex-col space-y-5">
 //           <div className="bg-white rounded-xl px-5 py-6 border border-gray-300">
 //             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
 //               <h1 className="text-2xl font-bold">📘 Subject: Quiz</h1>
 //               <h2 className="text-xl font-semibold">
-//                 ⏱️ TIME LEFT - {formatTime(timeLeft)} MIN
+//                 ⏱️ TIME LEFT -{" "}
+//                 {`${Math.floor(timeLeft / 60)
+//                   .toString()
+//                   .padStart(2, "0")}:${(timeLeft % 60)
+//                   .toString()
+//                   .padStart(2, "0")}`}{" "}
+//                 MIN
 //               </h2>
 //             </div>
 //           </div>
 
 //           <div className="rounded-xl border border-gray-300 flex flex-col justify-between">
-//             <div className="bg-white p-5 rounded-xl" style={{ minHeight: "300px" }}>
-//               <div className="pb-1.5">
-//                 <h3 className="text-lg font-medium mb-2">
-//                   Question {currentQuestionIndex + 1}
-//                 </h3>
-//                 <p className="mb-2 min-h-[60px]">{currentQ.question}</p>
-//                 <div className="space-y-3">
-//                   {currentQ.options.map((option, index) => (
-//                     <div
-//                       key={index}
-//                       onClick={() => handleOptionSelect(index)}
-//                       className={`p-4 rounded-lg border border-gray-300 cursor-pointer transition-colors duration-200 ${
-//                         answers[currentQuestionIndex] === index
-//                           ? "bg-blue-300"
-//                           : "hover:bg-gray-100"
-//                       }`}
-//                     >
-//                       {option}
-//                     </div>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
+//             <QuestionCard
+//               question={currentQ}
+//               index={currentQuestionIndex}
+//               selectedAnswer={answers[currentQuestionIndex]}
+//               onSelect={handleOptionSelect}
+//             />
 
-//             <div className="flex justify-center">
-//               <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-center bg-white border-t p-5 border-gray-300 rounded-bl-xl rounded-br-xl gap-3 sm:gap-4">
-//                 {timeLeft === 0 ? (
-//                   <Button onClick={handleSubmitTest} className="bg-green-500 hover:bg-green-600 text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto">
-//                     Submit Test
-//                   </Button>
-//                 ) : (
-//                   <>
-//                     {currentQuestionIndex > 0 && (
-//                       <Button
-//                         onClick={() => setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))}
-//                         className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
-//                       >
-//                         Previous
-//                       </Button>
-//                     )}
-
-//                     {currentQuestionIndex < questions.length - 1 && (
-//                       <Button
-//                         onClick={() => setCurrentQuestionIndex((prev) => Math.min(prev + 1, questions.length - 1))}
-//                         className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
-//                       >
-//                         Next
-//                       </Button>
-//                     )}
-
-//                     {currentQuestionIndex < questions.length - 1 && (
-//                       <Button
-//                         onClick={() => {
-//                           const isMarked = markedForReview[currentQuestionIndex];
-//                           toggleMarkForReview(currentQuestionIndex);
-//                           if (!isMarked && currentQuestionIndex < questions.length - 1) {
-//                             setCurrentQuestionIndex(currentQuestionIndex + 1);
-//                           }
-//                         }}
-//                         className={`text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto ${
-//                           markedForReview[currentQuestionIndex]
-//                             ? "bg-blue-500 hover:bg-blue-600"
-//                             : "bg-blue-400 hover:bg-blue-500"
-//                         }`}
-//                       >
-//                         {markedForReview[currentQuestionIndex]
-//                           ? "Unmark"
-//                           : "Mark for Review"}
-//                       </Button>
-//                     )}
-//                   </>
-//                 )}
-//               </div>
-//             </div>
+//             <NavigationButtons
+//               currentQuestionIndex={currentQuestionIndex}
+//               totalQuestions={questions.length}
+//               timeLeft={timeLeft}
+//               answered={answered}
+//               markedForReview={markedForReview}
+//               onPrevious={() =>
+//                 setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))
+//               }
+//               onNext={() =>
+//                 setCurrentQuestionIndex((prev) =>
+//                   Math.min(prev + 1, questions.length - 1)
+//                 )
+//               }
+//               onToggleMark={() => {
+//                 toggleMarkForReview(currentQuestionIndex);
+//                 if (
+//                   !markedForReview[currentQuestionIndex] &&
+//                   currentQuestionIndex < questions.length - 1
+//                 ) {
+//                   setCurrentQuestionIndex((prev) => prev + 1);
+//                 }
+//               }}
+//               onSubmit={handleSubmitTest}
+//             />
 //           </div>
 //         </div>
 
-//         {/* Right Sidebar */}
-//         <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white">
-//           <div className="p-5">
-//             <div className="flex items-center gap-5 border-b border-gray-300 pb-3 mb-3">
-//               <div className="rounded-full p-5 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">
-//                 Ab
-//               </div>
-//               <div>
-//                 <h1 className="text-lg font-medium">User</h1>
-//               </div>
-//             </div>
-
-//             <div className="border-b border-gray-300 pb-1">
-//               <h3 className="text-lg font-semibold mb-4 border-b border-gray-300 pb-3">
-//                 Question Analysis
-//               </h3>
-//               <div className="flex gap-3 flex-wrap mb-3 max-h-88 overflow-y-auto">
-//                 {questions.map((_, i) => (
-//                   <button
-//                     key={i}
-//                     onClick={() => setCurrentQuestionIndex(i)}
-//                     className={`w-10 h-10 md:w-12 md:h-12 inline-flex justify-center items-center rounded-lg border border-gray-300 text-sm font-medium cursor-pointer
-//                     ${
-//                       markedForReview[i]
-//                         ? "bg-red-400 text-white"
-//                         : answers[i] !== null
-//                         ? "bg-blue-300 text-white"
-//                         : "bg-white text-black hover:bg-gray-100"
-//                     }`}
-//                   >
-//                     {i + 1}
-//                   </button>
-//                 ))}
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* Bottom Submit Button */}
-//           <div className="w-full flex items-center justify-center py-4 border-t border-gray-300 text-white bg-blue-400 hover:bg-blue-500 rounded-bl-xl rounded-br-xl cursor-pointer">
-//             <Button onClick={handleSubmitTest}>Submit Test</Button>
-//           </div>
-//         </div>
+//         <Sidebar
+//           questions={questions}
+//           answers={answers}
+//           markedForReview={markedForReview}
+//           currentIndex={currentQuestionIndex}
+//           onSelectQuestion={setCurrentQuestionIndex}
+//           onSubmit={handleSubmitTest}
+//         />
 //       </div>
 
-//       {/* Exit confirmation modal */}
-//       {showExitWarning && (
-//         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-//           <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
-//             <h2 className="text-xl font-bold text-red-600 mb-4">Exit Warning</h2>
-//             <p className="mb-6">You're trying to exit the test. Do you want to continue or exit and submit?</p>
-//             <div className="flex justify-center gap-4">
-//               <button
-//                 onClick={() => setShowExitWarning(false)}
-//                 className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-//               >
-//                 Continue Test
-//               </button>
-//               <button
-//                 onClick={() => {
-//                   setShowExitWarning(false);
-//                   handleSubmitTest();
-//                 }}
-//                 className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-//               >
-//                 Exit & Submit
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
+//       <ExitWarningModal
+//         visible={showExitWarning}
+//         message={securityBreachMessage}
+//         onContinue={() => setShowExitWarning(false)}
+//         onExit={() => {
+//           setShowExitWarning(false);
+//           handleSubmitTest();
+//         }}
+//       />
 //     </div>
 //   );
 // };
@@ -345,24 +325,17 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
+
+import QuestionCard from "../components/quizApp/QuestionCard";
+import NavigationButtons from "../components/quizApp/NavigationButtons";
+import Sidebar from "../components/quizApp/Sidebar";
+import ExitWarningModal from "../components/quizApp/ExitWarningModal";
 
 const API_CALL = import.meta.env.VITE_API_URL_PATH;
 const API_KEY = import.meta.env.VITE_API_URL_KEY;
-// console.log('hgjhghhgf',API_CALL , API_KEY);
 
 const QuizApp = () => {
   const [questions, setQuestions] = useState([]);
@@ -381,6 +354,7 @@ const QuizApp = () => {
 
   const navigate = useNavigate();
 
+  // Fetch questions
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -406,6 +380,7 @@ const QuizApp = () => {
     fetchQuestions();
   }, []);
 
+  // Timer countdown
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -420,12 +395,14 @@ const QuizApp = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Update answered flag
   useEffect(() => {
     if (questions.length > 0) {
       setAnswered(answers[currentQuestionIndex] !== null);
     }
   }, [currentQuestionIndex, answers, questions]);
 
+  // Exam security and camera setup
   useEffect(() => {
     const preventDefault = (e) => e.preventDefault();
     document.addEventListener("copy", preventDefault);
@@ -436,18 +413,14 @@ const QuizApp = () => {
     const handleBeforeUnload = (e) => {
       e.preventDefault();
       e.returnValue = "";
-      setSecurityBreachMessage(
-        "Exit attempt detected. Do you want to exit and submit or continue your test?"
-      );
+      setSecurityBreachMessage("Exit attempt detected. Do you want to exit and submit or continue your test?");
       setShowExitWarning(true);
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        setSecurityBreachMessage(
-          "Tab switch detected. Do you want to exit and submit or continue your test?"
-        );
+        setSecurityBreachMessage("Tab switch detected. Do you want to exit and submit or continue your test?");
         setShowExitWarning(true);
       }
     };
@@ -464,26 +437,11 @@ const QuizApp = () => {
 
     const handleFullScreenChange = () => {
       if (!document.fullscreenElement) {
-        setSecurityBreachMessage(
-          "Fullscreen exited. Do you want to exit and submit or continue your test?"
-        );
+        setSecurityBreachMessage("Fullscreen exited. Do you want to exit and submit or continue your test?");
         setShowExitWarning(true);
       }
     };
     document.addEventListener("fullscreenchange", handleFullScreenChange);
-
-    // const blockInspect = (e) => {
-    //   if (
-    //     e.key === "F12" ||
-    //     (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-    //     (e.ctrlKey && e.key === "U")
-    //   ) {
-    //     e.preventDefault();
-    //     setSecurityBreachMessage("Inspect action detected. Do you want to exit and submit or continue your test?");
-    //     setShowExitWarning(true);
-    //   }
-    // };
-    // window.addEventListener("keydown", blockInspect);
 
     const handleBackButton = (e) => {
       e.preventDefault();
@@ -492,7 +450,6 @@ const QuizApp = () => {
     window.history.pushState(null, "", window.location.href);
     window.addEventListener("popstate", handleBackButton);
 
-    // Start webcam
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
@@ -512,74 +469,155 @@ const QuizApp = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
-      // window.removeEventListener("keydown", blockInspect);
       window.removeEventListener("popstate", handleBackButton);
     };
   }, []);
 
-  // Periodic screen capture from camera
+  // Periodic camera screenshot
   useEffect(() => {
     if (!cameraActive) return;
 
     const interval = setInterval(() => {
       const canvas = canvasRef.current;
       const video = videoRef.current;
-      console.log(canvas, video);
 
-      if (canvas && video) {
-        const context = canvas.getContext("2d");
+      if (!canvas || !video || video.videoWidth === 0 || video.videoHeight === 0) return;
 
-        if (video.videoWidth === 0 || video.videoHeight === 0) return;
+      const context = canvas.getContext("2d");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const compressedCanvas = document.createElement("canvas");
+      const ctx = compressedCanvas.getContext("2d");
+      compressedCanvas.width = video.videoWidth * 0.5;
+      compressedCanvas.height = video.videoHeight * 0.5;
+      ctx.drawImage(video, 0, 0, compressedCanvas.width, compressedCanvas.height);
 
-        canvas.toBlob(async (blob) => {
-          if (!blob) return;
+      compressedCanvas.toBlob(async (blob) => {
+        if (!blob) return;
 
-          const formData = new FormData();
-          formData.append("file", blob, `screenshot_${Date.now()}.png`);
-            console.log("Uploading screenshot", formData.getAll("file"));
+        const formData = new FormData();
+        formData.append("file", blob, `screenshot_${Date.now()}.jpg`);
 
-          try {
-            const a = await axios.post(
-
-              `${API_CALL}/api/FileAPI/UploadFiles`,
-              formData,
-              {
-                headers: {
-                  "Content-Type": "multipart/form-data",
-                  // "APIKEY": API_KEY ,
-                },
-                params: {
-                  APIKEY: API_KEY,
-                },
-              }
-            );
-            console.log("Upload response:", a.data);
-            
-            console.log("Screenshot uploaded");
-          } catch (error) {
-            console.error("Upload failed:", error);
-          }
-        }, "image/png");
-
-
-      }
-    }, 60000); // every 60 seconds
-    
+        try {
+          await axios.post(`${API_CALL}/api/FileAPI/UploadFiles`, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+            params: { APIKEY: API_KEY },
+          });
+        } catch (error) {
+          console.error("Upload failed:", error);
+        }
+      }, "image/jpeg", 0.6);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, [cameraActive]);
 
-  const formatTime = (seconds) => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-    return `${min.toString().padStart(2, "0")}:${sec
-      .toString()
-      .padStart(2, "0")}`;
+  useEffect(() => {
+  let screenStream;
+
+  const startScreenCapture = async () => {
+    try {
+      screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+      const video = document.createElement('video');
+      video.srcObject = screenStream;
+      video.play();
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+
+      const interval = setInterval(async () => {
+        if (video.videoWidth && video.videoHeight) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+          canvas.toBlob(async (blob) => {
+            const formData = new FormData();
+            formData.append("file", blob, `screen_${Date.now()}.jpg`);
+
+            try {
+              await axios.post(`${API_CALL}/api/FileAPI/UploadFiles`, formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+                params: { APIKEY: API_KEY },
+              });
+            } catch (err) {
+              console.error("Screen upload failed:", err);
+            }
+          }, 'image/jpeg', 0.7);
+        }
+      }, 5000); // every 5 seconds
+
+      return () => {
+        clearInterval(interval);
+        screenStream.getTracks().forEach((track) => track.stop());
+      };
+    } catch (err) {
+      console.error("Screen share error:", err);
+    }
   };
+
+  startScreenCapture();
+}, []);
+
+useEffect(() => {
+  let mediaRecorder;
+  let recordedChunks = [];
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = stream;
+      setCameraActive(true);
+
+      mediaRecorder = new MediaRecorder(stream);
+      recordedChunks = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) {
+          recordedChunks.push(e.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const formData = new FormData();
+        formData.append("file", blob, `video_clip_${Date.now()}.webm`);
+
+        try {
+          await axios.post(`${API_CALL}/api/FileAPI/UploadFiles`, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+            params: { APIKEY: API_KEY },
+          });
+        } catch (err) {
+          console.error("Video upload failed:", err);
+        }
+      };
+
+      mediaRecorder.start();
+
+      const stopInterval = setInterval(() => {
+        if (mediaRecorder.state !== "inactive") {
+          mediaRecorder.stop();
+          mediaRecorder.start(); // start new 2-min recording
+        }
+      }, 120000); // 2 minutes
+
+      return () => {
+        clearInterval(stopInterval);
+        stream.getTracks().forEach((track) => track.stop());
+      };
+
+    } catch (error) {
+      console.error("Video recording error:", error);
+      setCameraActive(false);
+    }
+  };
+
+  startRecording();
+}, []);
+
 
   const handleOptionSelect = (index) => {
     const updatedAnswers = [...answers];
@@ -596,217 +634,82 @@ const QuizApp = () => {
   };
 
   const handleSubmitTest = () => {
-    // Stop the camera
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject;
-      const tracks = stream.getTracks();
-
-      tracks.forEach((track) => track.stop());
+      stream.getTracks().forEach((track) => track.stop());
       videoRef.current.srcObject = null;
     }
-
-    // Navigate to the result page
     navigate("/tabs");
   };
 
   if (loading) {
-    return (
-      <div className="p-10 text-xl font-semibold">Loading questions...</div>
-    );
+    return <div className="p-10 text-xl font-semibold">Loading questions...</div>;
   }
 
   const currentQ = questions[currentQuestionIndex];
 
-
-
   return (
     <div className="min-h-screen bg-white text-black px-10 py-7">
-      {/* Hidden video and canvas */}
       <video ref={videoRef} autoPlay playsInline className="hidden" />
       <canvas ref={canvasRef} className="hidden" />
 
-      {/* Main Layout */}
       <div className="flex flex-col lg:flex-row gap-10">
         <div className="flex-1 flex flex-col space-y-5">
           <div className="bg-white rounded-xl px-5 py-6 border border-gray-300">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <h1 className="text-2xl font-bold">📘 Subject: Quiz</h1>
               <h2 className="text-xl font-semibold">
-                ⏱️ TIME LEFT - {formatTime(timeLeft)} MIN
+                ⏱️ TIME LEFT - {`${Math.floor(timeLeft / 60).toString().padStart(2, "0")}:${(timeLeft % 60).toString().padStart(2, "0")}`} MIN
               </h2>
             </div>
           </div>
 
           <div className="rounded-xl border border-gray-300 flex flex-col justify-between">
-            <div
-              className="bg-white p-5 rounded-xl"
-              style={{ minHeight: "300px" }}
-            >
-              <div className="pb-1.5">
-                <h3 className="text-lg font-medium mb-2">
-                  Question {currentQuestionIndex + 1}
-                </h3>
-                <p className="mb-2 min-h-[60px]">{currentQ.question}</p>
-                <div className="space-y-3">
-                  {currentQ.options.map((option, index) => (
-                    <div
-                      key={index}
-                      onClick={() => handleOptionSelect(index)}
-                      className={`p-4 rounded-lg border border-gray-300 cursor-pointer transition-colors duration-200 ${
-                        answers[currentQuestionIndex] === index
-                          ? "bg-blue-300"
-                          : "hover:bg-gray-100"
-                      }`}
-                    >
-                      {option}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <QuestionCard
+              question={currentQ}
+              index={currentQuestionIndex}
+              selectedAnswer={answers[currentQuestionIndex]}
+              onSelect={handleOptionSelect}
+            />
 
-            <div className="flex justify-center">
-              <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-center bg-white border-t p-5 border-gray-300 rounded-bl-xl rounded-br-xl gap-3 sm:gap-4">
-                {timeLeft === 0 ? (
-                  <Button
-                    onClick={handleSubmitTest}
-                    className="bg-green-500 hover:bg-green-600 text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
-                  >
-                    Submit Test
-                  </Button>
-                ) : (
-                  <>
-                    {currentQuestionIndex > 0 && (
-                      <Button
-                        onClick={() =>
-                          setCurrentQuestionIndex((prev) =>
-                            Math.max(prev - 1, 0)
-                          )
-                        }
-                        className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
-                      >
-                        Previous
-                      </Button>
-                    )}
-
-                    {currentQuestionIndex < questions.length - 1 && (
-                      <Button
-                        onClick={() =>
-                          setCurrentQuestionIndex((prev) =>
-                            Math.min(prev + 1, questions.length - 1)
-                          )
-                        }
-                        className="bg-blue-400 text-white hover:bg-blue-500 border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto"
-                      >
-                        Next
-                      </Button>
-                    )}
-
-                    {currentQuestionIndex < questions.length - 1 && (
-                      <Button
-                        onClick={() => {
-                          const isMarked =
-                            markedForReview[currentQuestionIndex];
-                          toggleMarkForReview(currentQuestionIndex);
-                          if (
-                            !isMarked &&
-                            currentQuestionIndex < questions.length - 1
-                          ) {
-                            setCurrentQuestionIndex(currentQuestionIndex + 1);
-                          }
-                        }}
-                        className={`text-white border border-gray-300 rounded-lg py-3 px-6 w-full sm:w-auto ${
-                          markedForReview[currentQuestionIndex]
-                            ? "bg-blue-500 hover:bg-blue-600"
-                            : "bg-blue-400 hover:bg-blue-500"
-                        }`}
-                      >
-                        {markedForReview[currentQuestionIndex]
-                          ? "Unmark"
-                          : "Mark for Review"}
-                      </Button>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
+            <NavigationButtons
+              currentQuestionIndex={currentQuestionIndex}
+              totalQuestions={questions.length}
+              timeLeft={timeLeft}
+              answered={answered}
+              markedForReview={markedForReview}
+              onPrevious={() => setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0))}
+              onNext={() => setCurrentQuestionIndex((prev) => Math.min(prev + 1, questions.length - 1))}
+              onToggleMark={() => {
+                toggleMarkForReview(currentQuestionIndex);
+                if (!markedForReview[currentQuestionIndex] && currentQuestionIndex < questions.length - 1) {
+                  setCurrentQuestionIndex((prev) => prev + 1);
+                }
+              }}
+              onSubmit={handleSubmitTest}
+            />
           </div>
         </div>
 
-        {/* Sidebar */}
-        <div className="w-full lg:w-80 flex flex-col justify-between rounded-xl border border-gray-300 bg-white">
-          <div className="p-5">
-            <div className="flex items-center gap-5 border-b border-gray-300 pb-3 mb-3">
-              <div className="rounded-full p-5 border border-gray-300 bg-gray-100 text-black text-xl font-semibold flex items-center justify-center w-16 h-16">
-                Ab
-              </div>
-              <div>
-                <h1 className="text-lg font-medium">User</h1>
-              </div>
-            </div>
-
-            <div className="border-b border-gray-300 pb-1">
-              <h3 className="text-lg font-semibold mb-4 border-b border-gray-300 pb-3">
-                Question Analysis
-              </h3>
-              <div className="flex gap-3 flex-wrap mb-3 max-h-88 overflow-y-auto">
-                {questions.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentQuestionIndex(i)}
-                    className={`w-10 h-10 md:w-12 md:h-12 inline-flex justify-center items-center rounded-lg border border-gray-300 text-sm font-medium cursor-pointer
-                    ${
-                      markedForReview[i]
-                        ? "bg-red-400 text-white"
-                        : answers[i] !== null
-                        ? "bg-blue-300 text-white"
-                        : "bg-white text-black hover:bg-gray-100"
-                    }`}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full flex items-center justify-center py-4 border-t border-gray-300 text-white bg-blue-400 hover:bg-blue-500 rounded-bl-xl rounded-br-xl cursor-pointer">
-            <Button onClick={handleSubmitTest}>Submit Test</Button>
-          </div>
-        </div>
+        <Sidebar
+          questions={questions}
+          answers={answers}
+          markedForReview={markedForReview}
+          currentIndex={currentQuestionIndex}
+          onSelectQuestion={setCurrentQuestionIndex}
+          onSubmit={handleSubmitTest}
+        />
       </div>
 
-      {/* Exit Modal */}
-      {showExitWarning && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm w-full">
-            <h2 className="text-xl font-bold text-red-600 mb-4">
-              Exit Warning
-            </h2>
-            <p className="mb-6">
-              {securityBreachMessage ||
-                "You're trying to exit the test. Do you want to continue or exit and submit?"}
-            </p>
-            <div className="flex justify-center gap-4">
-              <button
-                onClick={() => setShowExitWarning(false)}
-                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-              >
-                Continue Test
-              </button>
-              <button
-                onClick={() => {
-                  setShowExitWarning(false);
-                  handleSubmitTest();
-                }}
-                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-              >
-                Exit & Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <ExitWarningModal
+        visible={showExitWarning}
+        message={securityBreachMessage}
+        onContinue={() => setShowExitWarning(false)}
+        onExit={() => {
+          setShowExitWarning(false);
+          handleSubmitTest();
+        }}
+      />
     </div>
   );
 };

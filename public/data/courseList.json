@@ -1,0 +1,98 @@
+[
+    {
+      "title": "Mathematics",
+      "description": "Master algebra, geometry, and calculus.",
+      "duration": "6 weeks",
+      "startDate": "2025-07-01",
+      "image": "https://i.pravatar.cc/100?img=1",
+      "progress": 80
+    },
+    {
+      "title": "Physics",
+      "description": "Explore mechanics, thermodynamics, and more.",
+      "duration": "8 weeks",
+      "startDate": "2025-07-10",
+      "image": "https://i.pravatar.cc/100?img=2",
+      "progress": 45
+    },
+    {
+      "title": "Computer Science",
+      "description": "Intro to programming, data structures, and algorithms.",
+      "duration": "10 weeks",
+      "startDate": "2025-07-15",
+      "image": "https://i.pravatar.cc/100?img=3",
+      "progress": 60
+    },
+    {
+      "title": "Mathematics",
+      "description": "Master algebra, geometry, and calculus.",
+      "duration": "6 weeks",
+      "startDate": "2025-07-01",
+      "image": "https://i.pravatar.cc/100?img=1",
+      "progress": 80
+    },
+    {
+      "title": "Physics",
+      "description": "Explore mechanics, thermodynamics, and more.",
+      "duration": "8 weeks",
+      "startDate": "2025-07-10",
+      "image": "https://i.pravatar.cc/100?img=2",
+      "progress": 45
+    },
+    {
+      "title": "Computer Science",
+      "description": "Intro to programming, data structures, and algorithms.",
+      "duration": "10 weeks",
+      "startDate": "2025-07-15",
+      "image": "https://i.pravatar.cc/100?img=3",
+      "progress": 60
+    },
+    {
+      "title": "Mathematics",
+      "description": "Master algebra, geometry, and calculus.",
+      "duration": "6 weeks",
+      "startDate": "2025-07-01",
+      "image": "https://i.pravatar.cc/100?img=1",
+      "progress": 80
+    },
+    {
+      "title": "Physics",
+      "description": "Explore mechanics, thermodynamics, and more.",
+      "duration": "8 weeks",
+      "startDate": "2025-07-10",
+      "image": "https://i.pravatar.cc/100?img=2",
+      "progress": 45
+    },
+    {
+      "title": "Computer Science",
+      "description": "Intro to programming, data structures, and algorithms.",
+      "duration": "10 weeks",
+      "startDate": "2025-07-15",
+      "image": "https://i.pravatar.cc/100?img=3",
+      "progress": 60
+    },
+    {
+      "title": "Mathematics",
+      "description": "Master algebra, geometry, and calculus.",
+      "duration": "6 weeks",
+      "startDate": "2025-07-01",
+      "image": "https://i.pravatar.cc/100?img=1",
+      "progress": 80
+    },
+    {
+      "title": "Physics",
+      "description": "Explore mechanics, thermodynamics, and more.",
+      "duration": "8 weeks",
+      "startDate": "2025-07-10",
+      "image": "https://i.pravatar.cc/100?img=2",
+      "progress": 45
+    },
+    {
+      "title": "Computer Science",
+      "description": "Intro to programming, data structures, and algorithms.",
+      "duration": "10 weeks",
+      "startDate": "2025-07-15",
+      "image": "https://i.pravatar.cc/100?img=3",
+      "progress": 60
+    }
+]

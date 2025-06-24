@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Button } from "../components/Button";
 import ResultTab from "../components/TabsPage/ResultTab";
 import CourseTab from "../components/TabsPage/CourseTab";
 import ContactTab from "../components/TabsPage/ContactTab";
+import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -25,235 +26,31 @@ const TabsPage = () => {
     ],
   };
 
-  // ✅ Correct full course data
-  const courseList = [
-    {
-      title: "Mathematics",
-      description: "Master algebra, geometry, and calculus.",
-      duration: "6 weeks",
-      startDate: "2025-07-01",
-      image: "https://i.pravatar.cc/100?img=1",
-      progress: 80,
-    },
-        {
-      title: "Physics",
-      description: "Explore mechanics, thermodynamics, and more.",
-      duration: "8 weeks",
-      startDate: "2025-07-10",
-      image: "https://i.pravatar.cc/100?img=2",
-      progress: 45,
-    },
-        {
-      title: "Computer Science",
-      description: "Intro to programming, data structures, and algorithms.",
-      duration: "10 weeks",
-      startDate: "2025-07-15",
-      image: "https://i.pravatar.cc/100?img=3",
-      progress: 60,
-    },
-        {
-      title: "Mathematics",
-      description: "Master algebra, geometry, and calculus.",
-      duration: "6 weeks",
-      startDate: "2025-07-01",
-      image: "https://i.pravatar.cc/100?img=1",
-      progress: 80,
-    },
-        {
-      title: "Physics",
-      description: "Explore mechanics, thermodynamics, and more.",
-      duration: "8 weeks",
-      startDate: "2025-07-10",
-      image: "https://i.pravatar.cc/100?img=2",
-      progress: 45,
-    },
-        {
-      title: "Computer Science",
-      description: "Intro to programming, data structures, and algorithms.",
-      duration: "10 weeks",
-      startDate: "2025-07-15",
-      image: "https://i.pravatar.cc/100?img=3",
-      progress: 60,
-    },
-        {
-      title: "Mathematics",
-      description: "Master algebra, geometry, and calculus.",
-      duration: "6 weeks",
-      startDate: "2025-07-01",
-      image: "https://i.pravatar.cc/100?img=1",
-      progress: 80,
-    },
-        {
-      title: "Physics",
-      description: "Explore mechanics, thermodynamics, and more.",
-      duration: "8 weeks",
-      startDate: "2025-07-10",
-      image: "https://i.pravatar.cc/100?img=2",
-      progress: 45,
-    },
-        {
-      title: "Computer Science",
-      description: "Intro to programming, data structures, and algorithms.",
-      duration: "10 weeks",
-      startDate: "2025-07-15",
-      image: "https://i.pravatar.cc/100?img=3",
-      progress: 60,
-    },
-        {
-      title: "Mathematics",
-      description: "Master algebra, geometry, and calculus.",
-      duration: "6 weeks",
-      startDate: "2025-07-01",
-      image: "https://i.pravatar.cc/100?img=1",
-      progress: 80,
-    },
-    {
-      title: "Physics",
-      description: "Explore mechanics, thermodynamics, and more.",
-      duration: "8 weeks",
-      startDate: "2025-07-10",
-      image: "https://i.pravatar.cc/100?img=2",
-      progress: 45,
-    },
-    {
-      title: "Computer Science",
-      description: "Intro to programming, data structures, and algorithms.",
-      duration: "10 weeks",
-      startDate: "2025-07-15",
-      image: "https://i.pravatar.cc/100?img=3",
-      progress: 60,
-    },
-  ];
+  const [courseList, setCourseList] = useState([]);
+  const [facultyList, setFacultyList] = useState([]);
 
-  // ✅ Correct faculty info
-  const facultyList =[
-  {
-    name: "Dr. A. Sharma",
-    subject: "Mathematics",
-    email: "asharma@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=1",
-  },
-  {
-    name: "Prof. R. Verma",
-    subject: "Physics",
-    email: "rverma@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=2",
-  },
-    {
-    name: "Prof. V. Mehta",
-    subject: "Statistics",
-    email: "vmehta@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=8",
-  },
-  {
-    name: "Ms. H. Joshi",
-    subject: "History",
-    email: "hjoshi@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=9",
-  },
-  {
-    name: "Dr. R. Singh",
-    subject: "Political Science",
-    email: "rsingh@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=10",
-  },
-  {
-    name: "Prof. A. Das",
-    subject: "Geography",
-    email: "adas@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=11",
-  },
-  {
-    name: "Ms. M. Khan",
-    subject: "Philosophy",
-    email: "mkhan@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=12",
-  },
-    {
-    name: "Prof. V. Mehta",
-    subject: "Statistics",
-    email: "vmehta@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=8",
-  },
-  {
-    name: "Ms. H. Joshi",
-    subject: "History",
-    email: "hjoshi@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=9",
-  },
-  {
-    name: "Dr. R. Singh",
-    subject: "Political Science",
-    email: "rsingh@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=10",
-  },
-  {
-    name: "Prof. A. Das",
-    subject: "Geography",
-    email: "adas@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=11",
-  },
-  {
-    name: "Ms. N. Rao",
-    subject: "Computer Science",
-    email: "nrao@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=3",
-  },
-  {
-    name: "Dr. S. Gupta",
-    subject: "Chemistry",
-    email: "sgupta@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=4",
-  },
-  {
-    name: "Mr. K. Iyer",
-    subject: "Biology",
-    email: "kiyer@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=5",
-  },
-  {
-    name: "Ms. T. Desai",
-    subject: "English",
-    email: "tdesai@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=6",
-  },
-  {
-    name: "Dr. P. Reddy",
-    subject: "Economics",
-    email: "preddy@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=7",
-  },
-  {
-    name: "Prof. V. Mehta",
-    subject: "Statistics",
-    email: "vmehta@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=8",
-  },
-  {
-    name: "Ms. H. Joshi",
-    subject: "History",
-    email: "hjoshi@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=9",
-  },
-  {
-    name: "Dr. R. Singh",
-    subject: "Political Science",
-    email: "rsingh@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=10",
-  },
-  {
-    name: "Prof. A. Das",
-    subject: "Geography",
-    email: "adas@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=11",
-  },
-  {
-    name: "Ms. M. Khan",
-    subject: "Philosophy",
-    email: "mkhan@university.edu",
-    avatar: "https://i.pravatar.cc/100?img=12",
-  },
-];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [courseRes, facultyRes] = await Promise.all([
+          axios.get(import.meta.env.VITE_API_URL_COURSELIST),
+          axios.get(import.meta.env.VITE_API_URL_FACULTYLIST),
+        ]);
+        setCourseList(courseRes.data);
+        setFacultyList(facultyRes.data);
+
+        console.log(
+          "Course List:",
+          courseRes.data,
+          "Faculty List:",
+          facultyRes.data
+        );
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const tabButtonStyle = (tab) =>
     `py-2 px-4 text-sm font-medium rounded-lg border border-gray-300 transition ${
